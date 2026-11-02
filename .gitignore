@@ -11,6 +11,7 @@ output/
 # Tenant data and credentials - never commit
 *.properties
 !fpnp.properties
+!extractor/config.properties
 L3.json
 Output*.csv
 *.zip
