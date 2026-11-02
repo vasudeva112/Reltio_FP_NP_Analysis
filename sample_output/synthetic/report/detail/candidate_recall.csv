@@ -1,0 +1,6 @@
+﻿MatchGroupURI,ExhaustivePairsEvaluated,OptimisedCandidatePairs,MatchesExhaustive,MatchesTokenOnly,MatchesOptimised,RecallTokenOnly,RecallOptimised,Basis
+configuration/entityTypes/Person/matchGroups/SynExactNameDob,465,426,4,4,4,1.0,1.0,estimate: exhaustive comparison on the loaded dataset (31 entities)
+configuration/entityTypes/Person/matchGroups/SynIdFuzzyName,465,426,3,2,3,0.6667,1.0,estimate: exhaustive comparison on the loaded dataset (31 entities)
+configuration/entityTypes/Person/matchGroups/SynRelevance,465,426,11,7,11,0.6364,1.0,estimate: exhaustive comparison on the loaded dataset (31 entities)
+configuration/entityTypes/Person/matchGroups/SynHousehold,465,426,1,1,1,1.0,1.0,estimate: exhaustive comparison on the loaded dataset (31 entities)
+(all groups),465,426,19,14,19,0.7368,1.0,estimate: exhaustive comparison on the loaded dataset (31 entities)

@@ -1,0 +1,2 @@
+﻿Severity,Category,Message,MatchGroup,Attribute,Source,Occurrences,Examples
+WARNING,DUPLICATE_ENTITY,Entity appears more than once in the exports - first kept,,,,1,entities/e02

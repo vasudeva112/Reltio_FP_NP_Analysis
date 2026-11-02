@@ -1,0 +1,18 @@
+﻿Rule,Rule Type,Attribute,Operator,Comparator,Token Class,Config Weight,Weight Used,Weight Share,Score If Only This Fails,Score Lost,Still Matches If Only This Fails,Flags Pair When
+SynExactNameDob,suspect,FirstName,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynExactNameDob,suspect,LastName,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynExactNameDob,suspect,DoB,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynExactNameDob,suspect,MiddleName,exactOrNull,BasicStringComparator,,,,,,,No,
+SynIdFuzzyName,suspect,FirstName,fuzzy,DoubleMetaphoneComparator,ExactMatchToken,,,,,,No,"Disagree, Fuzzy collision, Null, Partial, Phonetic collision"
+SynIdFuzzyName,suspect,LastName,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynIdFuzzyName,suspect,Identifiers.Type,exact,BasicStringComparator,,,,,,,No,
+SynIdFuzzyName,suspect,Identifiers.Value,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynIdFuzzyName,suspect,Identifiers.Type,"in ['SSN', 'ITN']",(filter),,,,,,,filter - not scored,
+SynRelevance,relevance_based,FirstName,fuzzy,DoubleMetaphoneComparator,ExactMatchToken,0.3,0.3,0.3,0.7,0.3,Yes,"Disagree, Fuzzy collision, Null, Partial, Phonetic collision"
+SynRelevance,relevance_based,LastName,fuzzy,DoubleMetaphoneComparator,DoubleMetaphoneMatchToken,0.3,0.3,0.3,0.7,0.3,Yes,"Disagree, Fuzzy collision, Null, Partial, Phonetic collision"
+SynRelevance,relevance_based,DoB,exact,BasicStringComparator,,0.3,0.3,0.3,0.7,0.3,Yes,
+SynRelevance,relevance_based,Suffix,exactOrNull,BasicStringComparator,,0.1,0.1,0.1,0.9,0.1,Yes,
+SynHousehold,suspect,LastName,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynHousehold,suspect,Address.AddressLine1,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynHousehold,suspect,Address.Zip5,exact,BasicStringComparator,ExactMatchToken,,,,,,No,
+SynHousehold,suspect,MiddleName,exactOrAllNull,BasicStringComparator,,,,,,,No,

@@ -1,0 +1,126 @@
+{
+  "mode": "all",
+  "started_at": "2026-10-29T13:00:47",
+  "code_version": "1.0.0",
+  "code_fingerprint": "234e85300dc979ca",
+  "python": "3.14.6",
+  "platform": "Windows-11-10.0.26300-SP0",
+  "settings_file": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\fpnp.properties",
+  "l3_config_file": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_L3.json",
+  "l3_config_sha256": "5f28039c1f2fedd4c5c5160ea690f6708b47cbce921fb5c07f10f1c1ed7209a1",
+  "report_files": {
+    "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_potential_matches.csv": "9f7329feff6c04e48a2a7d4dfc5c6e148048b64f5cb7cd0683091891e05723eb"
+  },
+  "steward_decisions_sha256": "c5212f865696d8fe559de90bb5534d7237c27dd85fc354272c8b2b6768dc8fe2",
+  "parameters": {
+    "tenant_properties": "D:/Office/Reltio/Python/Potential_Matches/dev-ov_02.properties",
+    "l3_config_file": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_L3.json",
+    "entity_types": [
+      "Person"
+    ],
+    "target_rule": "",
+    "report_files": [
+      "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_potential_matches.csv"
+    ],
+    "entity_export_paths": [
+      "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_entities.jsonl"
+    ],
+    "steward_decisions_file": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\input\\synthetic_steward_decisions.csv",
+    "name_dictionary_file": "",
+    "regexp_replace_dictionary_file": "",
+    "noise_dictionary_files": {},
+    "output_dir": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\sample_output\\synthetic\\report",
+    "case_insensitive": true,
+    "treat_blank_as_null": true,
+    "global_candidate_pooling": true,
+    "relevance_constraint_mode": "ignore",
+    "relevance_nested_aggregation": "mean",
+    "double_metaphone_max_length": 4,
+    "max_token_collision": 300,
+    "max_phrases_per_entity": 2000,
+    "blocking_enabled": true,
+    "blocking_max_block_size": 1000,
+    "blocking_attribute_pairs": true,
+    "blocking_phonetic": true,
+    "sorted_neighborhood_window": 10,
+    "exhaustive": false,
+    "exhaustive_max_entities": 5000,
+    "batch_size": 5000,
+    "workers": 1,
+    "resume": false,
+    "excel_row_cap": 200000,
+    "write_parquet": true,
+    "fp_suspect_threshold": 5.0,
+    "fp_review_threshold": 2.0,
+    "low_margin": 0.03,
+    "high_frequency_entities": 5,
+    "high_frequency_factor": 5.0,
+    "high_frequency_min_distinct_ratio": 0.3,
+    "risk_weights": {
+      "CONSTRAINT_VIOLATED": 3.0,
+      "FAILED_OPERAND_STILL_MATCHED": 3.0,
+      "POPULATED_VALUES_DIFFER": 2.0,
+      "NULL_CONTRIBUTION": 0.5,
+      "ONE_SIDED_NULL": 1.5,
+      "PERMISSIVE_COMPARATOR": 1.0,
+      "CROSS_INSTANCE_NESTED_MATCH": 2.0,
+      "MULTI_VALUE_PARTIAL": 0.5,
+      "LOW_MARGIN": 1.0,
+      "HIGH_FREQUENCY_VALUE": 2.0,
+      "PYTHON_DISAGREES": 1.0,
+      "APPROXIMATION_DEPENDENT": 0.0,
+      "RELTIO_RELEVANCE_DIFFERS": 0.0
+    },
+    "score_operators": [
+      "fuzzy"
+    ],
+    "score_triggers": [
+      "Disagree",
+      "Partial",
+      "Null",
+      "Phonetic collision",
+      "Fuzzy collision"
+    ],
+    "score_similarity_cutoff": 0.85,
+    "segment_label": "Bene Record",
+    "segment_crosswalk_regex": "^CIF:9000000",
+    "html_include_values": false,
+    "verify_sample_size": 50,
+    "verify_min_interval_sec": 0.5,
+    "verify_seed": 42,
+    "source_file": "D:\\Office\\Reltio\\Python\\Potential_Matches\\FPNP_Analyzer\\fpnp.properties"
+  },
+  "entity_load_seconds": 0.0,
+  "finished_at": "2026-10-29T13:00:48",
+  "seconds": 0.9,
+  "fn_metrics": {
+    "candidate_generation_seconds": 0.0,
+    "candidate_sources": {
+      "total": 426,
+      "token_logic": 10,
+      "extra_blocking_any": 426,
+      "extra_blocking_only": 416
+    },
+    "pairs_already_evaluated_resume": 0,
+    "pairs_evaluated": 426,
+    "pairs_same_entity_skipped": 0,
+    "fn_seconds": 0.5,
+    "peak_memory_mb_python_heap": 0.8
+  },
+  "entity_stats": {
+    "entities_read": 32,
+    "entities_loaded": 31,
+    "skipped_other_type": 0,
+    "duplicates": 1,
+    "missing_uri": 0
+  },
+  "fp_stats": {
+    "report_rows": 9,
+    "Confirmed True Positive": 3,
+    "Confirmed False Positive": 1,
+    "Unclassified": 3,
+    "Suspected False Positive": 1,
+    "Requires Steward Review": 1,
+    "seconds": 0.0
+  }
+}

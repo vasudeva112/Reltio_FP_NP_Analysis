@@ -1,0 +1,4 @@
+EntityURI1,EntityURI2,Decision,Reviewer,Comment
+entities/e01,entities/e02,MATCH,synthetic,designed outcome
+entities/e03,entities/e04,NOT_A_MATCH,synthetic,designed outcome
+entities/e07,entities/e08,MATCH,synthetic,designed outcome

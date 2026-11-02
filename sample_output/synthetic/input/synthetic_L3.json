@@ -1,0 +1,298 @@
+{
+ "uri": "configuration",
+ "label": "FPNP synthetic configuration",
+ "entityTypes": [
+  {
+   "uri": "configuration/entityTypes/Person",
+   "matchGroups": [
+    {
+     "uri": "configuration/entityTypes/Person/matchGroups/SynExactNameDob",
+     "label": "SynExactNameDob: Exact(FN,LN,DOB) EON(MN)",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/DoB",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/DoB",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/MiddleName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "and": {
+       "exact": [
+        "configuration/entityTypes/Person/attributes/FirstName",
+        "configuration/entityTypes/Person/attributes/LastName",
+        "configuration/entityTypes/Person/attributes/DoB"
+       ],
+       "exactOrNull": [
+        "configuration/entityTypes/Person/attributes/MiddleName"
+       ]
+      }
+     },
+     "negativeRule": {
+      "and": {
+       "equals": [
+        {
+         "uri": "configuration/entityTypes/Person/attributes/Status",
+         "values": [
+          "DECEASED"
+         ]
+        }
+       ]
+      }
+     },
+     "scoreStandalone": 0,
+     "scoreIncremental": 0
+    },
+    {
+     "uri": "configuration/entityTypes/Person/matchGroups/SynIdFuzzyName",
+     "label": "SynIdFuzzyName: Fuzzy(FN) Exact(LN,ID)",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "ignoreInToken": [
+       "configuration/entityTypes/Person/attributes/Identifiers/attributes/Type"
+      ],
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.comparator.DoubleMetaphoneComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Identifiers/attributes/Type",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "in": [
+       {
+        "values": [
+         "SSN",
+         "ITN"
+        ],
+        "uri": "configuration/entityTypes/Person/attributes/Identifiers/attributes/Type"
+       }
+      ],
+      "and": {
+       "fuzzy": [
+        "configuration/entityTypes/Person/attributes/FirstName"
+       ],
+       "exact": [
+        "configuration/entityTypes/Person/attributes/LastName",
+        "configuration/entityTypes/Person/attributes/Identifiers/attributes/Type",
+        "configuration/entityTypes/Person/attributes/Identifiers/attributes/Value"
+       ]
+      }
+     },
+     "scoreStandalone": 0,
+     "scoreIncremental": 0
+    },
+    {
+     "uri": "configuration/entityTypes/Person/matchGroups/SynRelevance",
+     "label": "SynRelevance: Fuzzy(FN,LN) Exact(DOB) EON(SX)",
+     "type": "relevance_based",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "ignoreInToken": [
+       "configuration/entityTypes/Person/attributes/DoB"
+      ],
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.token.DoubleMetaphoneMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.comparator.DoubleMetaphoneComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.comparator.DoubleMetaphoneComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/DoB",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Suffix",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "and": {
+       "fuzzy": [
+        "configuration/entityTypes/Person/attributes/FirstName",
+        "configuration/entityTypes/Person/attributes/LastName"
+       ],
+       "exact": [
+        "configuration/entityTypes/Person/attributes/DoB"
+       ],
+       "exactOrNull": [
+        "configuration/entityTypes/Person/attributes/Suffix"
+       ]
+      },
+      "weights": [
+       {
+        "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+        "weight": 0.3
+       },
+       {
+        "attribute": "configuration/entityTypes/Person/attributes/LastName",
+        "weight": 0.3
+       },
+       {
+        "attribute": "configuration/entityTypes/Person/attributes/DoB",
+        "weight": 0.3
+       },
+       {
+        "attribute": "configuration/entityTypes/Person/attributes/Suffix",
+        "weight": 0.1
+       }
+      ],
+      "actionThresholds": [
+       {
+        "type": "potential_match",
+        "threshold": "0.7-1",
+        "label": "Synthetic"
+       }
+      ]
+     },
+     "scoreStandalone": 0,
+     "scoreIncremental": 0
+    },
+    {
+     "uri": "configuration/entityTypes/Person/matchGroups/SynHousehold",
+     "label": "SynHousehold: Exact(LN,AD1,ZIP) EOAN(MN) NOT(FN)",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Address/attributes/AddressLine1",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Address/attributes/Zip5",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Address/attributes/AddressLine1",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/Address/attributes/Zip5",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/MiddleName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/Person/attributes/FirstName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "and": {
+       "exact": [
+        "configuration/entityTypes/Person/attributes/LastName",
+        "configuration/entityTypes/Person/attributes/Address/attributes/AddressLine1",
+        "configuration/entityTypes/Person/attributes/Address/attributes/Zip5"
+       ],
+       "exactOrAllNull": [
+        "configuration/entityTypes/Person/attributes/MiddleName"
+       ],
+       "not": {
+        "exact": [
+         "configuration/entityTypes/Person/attributes/FirstName"
+        ]
+       }
+      }
+     },
+     "scoreStandalone": 0,
+     "scoreIncremental": 0
+    }
+   ]
+  }
+ ]
+}

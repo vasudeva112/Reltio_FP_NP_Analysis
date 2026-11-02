@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+# Run output (contains tenant data)
+output/
+
+# Tenant data and credentials - never commit
+*.properties
+!fpnp.properties
+L3.json
+Output*.csv
+*.zip

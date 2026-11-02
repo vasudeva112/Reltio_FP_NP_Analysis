@@ -1,0 +1,8 @@
+﻿PairKey,OriginalOrder,EntityType,RuleLevelRows,ReltioGroups,PythonMatchingGroups,MaxRiskScore,RiskIndicators,Classification,StewardDecision
+entities/e01||entities/e02,entities/e01 -> entities/e02,Person,3,"SynExactNameDob, SynIdFuzzyName, SynRelevance","SynExactNameDob, SynIdFuzzyName, SynRelevance",2.0,"APPROXIMATION_DEPENDENT, NULL_CONTRIBUTION, ONE_SIDED_NULL",Confirmed True Positive,MATCH
+entities/e03||entities/e04,entities/e03 -> entities/e04,Person,1,SynRelevance,SynRelevance,7.5,"APPROXIMATION_DEPENDENT, FAILED_OPERAND_STILL_MATCHED, LOW_MARGIN, NULL_CONTRIBUTION, PERMISSIVE_COMPARATOR, POPULATED_VALUES_DIFFER",Confirmed False Positive,NOT_A_MATCH
+entities/e05||entities/e06,entities/e05 -> entities/e06,Person,1,SynExactNameDob,"SynExactNameDob, SynRelevance",0.5,NULL_CONTRIBUTION,Unclassified,
+entities/e09||entities/e10,entities/e09 -> entities/e10,Person,1,SynExactNameDob,"SynExactNameDob, SynRelevance",0.5,NULL_CONTRIBUTION,Unclassified,
+entities/e15||entities/e16,entities/e15 -> entities/e16,Person,1,SynHousehold,SynHousehold,0.5,NULL_CONTRIBUTION,Unclassified,
+entities/e05||entities/e20,entities/e05 -> entities/e20,Person,1,SynRelevance,,6.5,"APPROXIMATION_DEPENDENT, FAILED_OPERAND_STILL_MATCHED, NULL_CONTRIBUTION, POPULATED_VALUES_DIFFER, PYTHON_DISAGREES",Suspected False Positive,
+entities/e18||entities/e19,entities/e18 -> entities/e19,Person,1,SynIdFuzzyName,"SynIdFuzzyName, SynRelevance",2.0,CROSS_INSTANCE_NESTED_MATCH,Requires Steward Review,

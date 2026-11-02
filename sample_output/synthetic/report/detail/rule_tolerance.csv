@@ -1,0 +1,5 @@
+﻿Rule,Rule Type,Logic,Total Weight,Bands,Lowest Threshold,Score Headroom,Attributes That Can Fail Alone,Attribute Pairs That Can Fail Together,Pairs Count
+SynExactNameDob,suspect,"AND[AND[exact(FirstName), exact(LastName), exact(DoB), exactOrNull(MiddleName)]]",,,,,none,none,0
+SynIdFuzzyName,suspect,"AND[in(Identifiers.Type in ['SSN', 'ITN']), AND[fuzzy(FirstName), exact(LastName), exact(Identifiers.Type), exact(Identifiers.Value)]]",,,,,none,none,0
+SynRelevance,relevance_based,"AND[AND[fuzzy(FirstName), fuzzy(LastName), exact(DoB), exactOrNull(Suffix)]]",1.0,Synthetic: 0.7-1.0,0.7,0.3,"FirstName, LastName, DoB, Suffix",none,0
+SynHousehold,suspect,"AND[AND[exact(LastName), exact(Address.AddressLine1), exact(Address.Zip5), exactOrAllNull(MiddleName), NOT[exact(FirstName)]]]",,,,,none,none,0

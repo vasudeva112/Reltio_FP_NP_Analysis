@@ -1,0 +1,46 @@
+﻿Section,Metric,SynExactNameDob,SynIdFuzzyName,SynRelevance,SynHousehold,Total,Unique Pairs,Attribute,Result,Flags Pair,Note
+Pair counts,Report rows (pair + rule),3,2,3,1,9,7,,,,
+Pair counts,Unique pairs,3,2,3,1,9,7,,,,a pair returned by several rules is counted under each rule
+Pair counts,Bene Record rows,0,0,0,0,0,0,,,,both entities have a crosswalk matching ^CIF:9000000
+Pair counts,Bene Record % of rows,0.0,0.0,0.0,0.0,0.0,,,,,
+Pair counts,Non-Bene Record rows,3,2,3,1,9,,,,,
+Comparator results,FirstName - Agree,3,2,2,-,7,5,FirstName,Agree,,Identical after normalisation.
+Comparator results,FirstName - Disagree,0,0,1,-,1,1,FirstName,Disagree,"SynIdFuzzyName, SynRelevance","Comparator did not accept the values. Flags the pair in SynIdFuzzyName, SynRelevance."
+Comparator results,FirstName - Null,0,0,0,-,0,0,FirstName,Null,"SynIdFuzzyName, SynRelevance","Value missing on one or both records. Flags the pair in SynIdFuzzyName, SynRelevance."
+Comparator results,LastName - Agree,3,2,1,1,7,5,LastName,Agree,,Identical after normalisation.
+Comparator results,LastName - Close variant,0,0,1,0,1,1,LastName,Close variant,,"Different values the comparator accepted, and they are textually close (similarity at or above the cutoff)."
+Comparator results,LastName - Disagree,0,0,1,0,1,1,LastName,Disagree,SynRelevance,Comparator did not accept the values. Flags the pair in SynRelevance.
+Comparator results,LastName - Null,0,0,0,0,0,0,LastName,Null,SynRelevance,Value missing on one or both records. Flags the pair in SynRelevance.
+Comparator results,DoB - Agree,3,-,1,-,4,3,DoB,Agree,,Identical after normalisation.
+Comparator results,DoB - Disagree,0,-,2,-,2,2,DoB,Disagree,,Comparator did not accept the values.
+Comparator results,DoB - Null,0,-,0,-,0,0,DoB,Null,,Value missing on one or both records.
+Comparator results,MiddleName - Disagree,0,-,-,0,0,0,MiddleName,Disagree,,Comparator did not accept the values.
+Comparator results,MiddleName - Null,3,-,-,1,4,4,MiddleName,Null,,Value missing on one or both records.
+Comparator results,Identifiers.Type - Agree,-,2,-,-,2,2,Identifiers.Type,Agree,,Identical after normalisation.
+Comparator results,Identifiers.Type - Disagree,-,0,-,-,0,0,Identifiers.Type,Disagree,,Comparator did not accept the values.
+Comparator results,Identifiers.Type - Null,-,0,-,-,0,0,Identifiers.Type,Null,,Value missing on one or both records.
+Comparator results,Identifiers.Value - Agree,-,2,-,-,2,2,Identifiers.Value,Agree,,Identical after normalisation.
+Comparator results,Identifiers.Value - Disagree,-,0,-,-,0,0,Identifiers.Value,Disagree,,Comparator did not accept the values.
+Comparator results,Identifiers.Value - Null,-,0,-,-,0,0,Identifiers.Value,Null,,Value missing on one or both records.
+Comparator results,Suffix - Disagree,-,-,0,-,0,0,Suffix,Disagree,,Comparator did not accept the values.
+Comparator results,Suffix - Null,-,-,3,-,3,3,Suffix,Null,,Value missing on one or both records.
+Comparator results,Address.AddressLine1 - Agree,-,-,-,1,1,1,Address.AddressLine1,Agree,,Identical after normalisation.
+Comparator results,Address.AddressLine1 - Disagree,-,-,-,0,0,0,Address.AddressLine1,Disagree,,Comparator did not accept the values.
+Comparator results,Address.AddressLine1 - Null,-,-,-,0,0,0,Address.AddressLine1,Null,,Value missing on one or both records.
+Comparator results,Address.Zip5 - Agree,-,-,-,1,1,1,Address.Zip5,Agree,,Identical after normalisation.
+Comparator results,Address.Zip5 - Disagree,-,-,-,0,0,0,Address.Zip5,Disagree,,Comparator did not accept the values.
+Comparator results,Address.Zip5 - Null,-,-,-,0,0,0,Address.Zip5,Null,,Value missing on one or both records.
+False positives,Comparator-flagged rows,0,0,1,0,1,1,,,,"an attribute evaluated with fuzzy has a result in: Disagree, Fuzzy collision, Null, Partial, Phonetic collision"
+False positives,  of which Bene Record,0,0,0,0,0,0,,,,
+False positives,FP rate (% of rows),0.0,0.0,33.3,0.0,11.1,,,,,
+False positives,  risk classification: Suspected False Positive,0,0,1,0,1,1,,,,classification from the risk-indicator analysis (FPNP_Analysis.xlsx)
+Relevance,Average relevance score,,,0.6,,0.6,,,,,
+Relevance,Minimum relevance score,,,0.1,,0.1,,,,,
+Relevance,Median relevance score,,,0.7,,0.7,,,,,
+Relevance,Maximum relevance score,,,1.0,,1.0,,,,,
+Relevance,Average relevance of flagged rows,,,0.1,,0.1,,,,,
+Relevance,Lowest threshold,,,0.7,,,,,,,
+Relevance,Rows scored below the lowest threshold,0,0,1,0,1,1,,,,Python relevance below every actionThreshold although Reltio returned the pair
+Relevance,Rows within 0.03 above the lowest threshold,0,0,1,0,1,1,,,,
+Bands,(below every threshold),0,0,1,0,1,1,,,,actionThreshold label of the Python relevance score
+Bands,Synthetic,0,0,2,0,2,2,,,,actionThreshold label of the Python relevance score

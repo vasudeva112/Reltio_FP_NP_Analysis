@@ -1,0 +1,13 @@
+﻿PairKey,Rule,Attribute,Operator,Comparator,Src Value,Match Value,Comparator Detail,Comparator Rel,Similarity,Result,Flags Pair,Score Lost,Relevance Score,Bene Record
+entities/e01||entities/e02,SynExactNameDob,MiddleName,exactOrNull,BasicStringComparator,A,<MISSING>,ONE_SIDED_NULL,1.0,,Null,N,,,N
+entities/e01||entities/e02,SynRelevance,Suffix,exactOrNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,1.0,N
+entities/e03||entities/e04,SynRelevance,LastName,fuzzy,DoubleMetaphoneComparator,Smith,Smyth,SM0/XMT vs SM0/XMT,1.0,0.8933,Close variant,N,,0.7,N
+entities/e03||entities/e04,SynRelevance,DoB,exact,BasicStringComparator,1975-03-03,1975-03-04,,0.0,0.96,Disagree,N,0.3,0.7,N
+entities/e03||entities/e04,SynRelevance,Suffix,exactOrNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,0.7,N
+entities/e05||entities/e06,SynExactNameDob,MiddleName,exactOrNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,,N
+entities/e09||entities/e10,SynExactNameDob,MiddleName,exactOrNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,,N
+entities/e15||entities/e16,SynHousehold,MiddleName,exactOrAllNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,,N
+entities/e05||entities/e20,SynRelevance,FirstName,fuzzy,DoubleMetaphoneComparator,Mary,Zed,MR vs ST,0.0,0.0,Disagree,Y,0.3,0.1,N
+entities/e05||entities/e20,SynRelevance,LastName,fuzzy,DoubleMetaphoneComparator,Jones,Quill,JNS/ANS vs KL,0.0,0.0,Disagree,Y,0.3,0.1,N
+entities/e05||entities/e20,SynRelevance,DoB,exact,BasicStringComparator,1990-05-05,1960-03-12,,0.0,0.7867,Disagree,N,0.3,0.1,N
+entities/e05||entities/e20,SynRelevance,Suffix,exactOrNull,BasicStringComparator,<MISSING>,<MISSING>,BOTH_NULL,1.0,,Null,N,,0.1,N

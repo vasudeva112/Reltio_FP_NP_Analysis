@@ -1,0 +1,72 @@
+2026-10-28 22:26:53,814 [INFO] FPNP Analyzer 1.0.0 - mode all
+2026-10-28 22:26:53,998 [INFO] Match groups: 4 ({'suspect': 3, 'relevance_based': 1})
+2026-10-28 22:26:54,001 [INFO] Report rows: 9, unique pairs: 7
+2026-10-28 22:26:54,039 [INFO] Entities loaded: {'entities_read': 32, 'entities_loaded': 31, 'skipped_other_type': 0, 'duplicates': 1, 'missing_uri': 0}
+2026-10-28 22:26:54,121 [INFO] [Person] candidate generation over 31 entities
+2026-10-28 22:26:54,283 [INFO] Candidate pairs: {'total': 426, 'token_logic': 10, 'extra_blocking_any': 426, 'extra_blocking_only': 416}
+2026-10-28 22:26:54,301 [INFO] Pairs to evaluate: 426 (resume skipped 0)
+2026-10-28 22:26:57,016 [INFO] Evaluated batch 1/1
+2026-10-28 22:26:57,029 [INFO] [Person] candidate generation over 31 entities
+2026-10-28 22:26:57,031 [INFO] [Person] candidate generation over 31 entities
+2026-10-28 22:26:57,048 [INFO] [Person] candidate generation over 31 entities
+2026-10-28 22:26:59,425 [INFO] Done in 4.8s. Workbook: D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FPNP_Analysis.xlsx
+2026-10-29 12:41:24,309 [INFO] FPNP Analyzer 1.0.0 - mode all
+2026-10-29 12:41:24,376 [INFO] Match groups: 4 ({'suspect': 3, 'relevance_based': 1})
+2026-10-29 12:41:24,377 [INFO] Report rows: 9, unique pairs: 7
+2026-10-29 12:41:24,386 [INFO] Entities loaded: {'entities_read': 32, 'entities_loaded': 31, 'skipped_other_type': 0, 'duplicates': 1, 'missing_uri': 0}
+2026-10-29 12:41:24,413 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:24,437 [INFO] Candidate pairs: {'total': 426, 'token_logic': 10, 'extra_blocking_any': 426, 'extra_blocking_only': 416}
+2026-10-29 12:41:24,440 [INFO] Pairs to evaluate: 426 (resume skipped 0)
+2026-10-29 12:41:24,927 [INFO] Evaluated batch 1/1
+2026-10-29 12:41:24,931 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:24,931 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:24,934 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:25,759 [INFO] Comparator score report: 1 flagged rows -> D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FP_Score_Report.xlsx
+2026-10-29 12:41:25,771 [ERROR] HTML report could not be written
+Traceback (most recent call last):
+  File "D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\fpnp\pipeline.py", line 363, in run
+    files["html_report"] = html_report.write(
+                           ~~~~~~~~~~~~~~~~~^
+        os.path.join(out, "FPNP_Report.html"), fp_rows=fp_rows, fp_pairs=fp_pairs, fn_rows=fn_rows,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        rule_rows=rule_rows, recall_rows=recall_rows, exceptions=LOG.rows(), meta=meta, settings=s,
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        limitations=LIMITATIONS, workbook=files["workbook"], scores=score.get("data"))
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\fpnp\html_report.py", line 571, in write
+    sec_scores, score_findings = _score_section(scores, _b(include_values))
+                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\fpnp\html_report.py", line 441, in _score_section
+    defs = "".join(f'<dt><span class="sw t-{tone}"></span>{_e(res)}</dt><dd>{_e(RESULT_MEANING.get(res, ""))}</dd>'
+                   for res, tone in RESULT_TONES)
+  File "D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\fpnp\html_report.py", line 441, in <genexpr>
+    defs = "".join(f'<dt><span class="sw t-{tone}"></span>{_e(res)}</dt><dd>{_e(RESULT_MEANING.get(res, ""))}</dd>'
+                                                                                ^^^^^^^^^^^^^^
+NameError: name 'RESULT_MEANING' is not defined
+2026-10-29 12:41:25,775 [INFO] Done in 1.1s. Workbook: D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FPNP_Analysis.xlsx
+2026-10-29 12:41:37,155 [INFO] FPNP Analyzer 1.0.0 - mode all
+2026-10-29 12:41:37,219 [INFO] Match groups: 4 ({'suspect': 3, 'relevance_based': 1})
+2026-10-29 12:41:37,220 [INFO] Report rows: 9, unique pairs: 7
+2026-10-29 12:41:37,232 [INFO] Entities loaded: {'entities_read': 32, 'entities_loaded': 31, 'skipped_other_type': 0, 'duplicates': 1, 'missing_uri': 0}
+2026-10-29 12:41:37,259 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:37,283 [INFO] Candidate pairs: {'total': 426, 'token_logic': 10, 'extra_blocking_any': 426, 'extra_blocking_only': 416}
+2026-10-29 12:41:37,286 [INFO] Pairs to evaluate: 426 (resume skipped 0)
+2026-10-29 12:41:37,783 [INFO] Evaluated batch 1/1
+2026-10-29 12:41:37,787 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:37,787 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:37,791 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 12:41:38,428 [INFO] Comparator score report: 1 flagged rows -> D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FP_Score_Report.xlsx
+2026-10-29 12:41:38,432 [INFO] Done in 1.0s. Workbook: D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FPNP_Analysis.xlsx
+2026-10-29 13:00:47,623 [INFO] FPNP Analyzer 1.0.0 - mode all
+2026-10-29 13:00:47,682 [INFO] Match groups: 4 ({'suspect': 3, 'relevance_based': 1})
+2026-10-29 13:00:47,683 [INFO] Report rows: 9, unique pairs: 7
+2026-10-29 13:00:47,692 [INFO] Entities loaded: {'entities_read': 32, 'entities_loaded': 31, 'skipped_other_type': 0, 'duplicates': 1, 'missing_uri': 0}
+2026-10-29 13:00:47,735 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 13:00:47,763 [INFO] Candidate pairs: {'total': 426, 'token_logic': 10, 'extra_blocking_any': 426, 'extra_blocking_only': 416}
+2026-10-29 13:00:47,767 [INFO] Pairs to evaluate: 426 (resume skipped 0)
+2026-10-29 13:00:48,250 [INFO] Evaluated batch 1/1
+2026-10-29 13:00:48,254 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 13:00:48,255 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 13:00:48,260 [INFO] [Person] candidate generation over 31 entities
+2026-10-29 13:00:48,865 [INFO] Comparator score report: 1 flagged rows -> D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FP_Score_Report.xlsx
+2026-10-29 13:00:48,868 [INFO] Done in 0.9s. Workbook: D:\Office\Reltio\Python\Potential_Matches\FPNP_Analyzer\sample_output\synthetic\report\FPNP_Analysis.xlsx
