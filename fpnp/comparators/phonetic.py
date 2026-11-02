@@ -63,3 +63,55 @@ class DoubleMetaphoneComparator(Comparator):
             return CompareResult(eq, 1.0 if eq else 0.0, "no phonetic code; string equality")
         eq = bool(set(ca) & set(cb))
         return CompareResult(eq, 1.0 if eq else 0.0, f"{'/'.join(ca)} vs {'/'.join(cb)}")
+
+
+def _letters(s: str) -> str:
+    return "".join(ch for ch in s if ch.isalpha())
+
+
+@register
+class SoundexComparator(Comparator):
+    RELTIO_NAME = "SoundexComparator"
+    STATUS = APPROXIMATION
+    DEFAULT_TOKEN_CLASS = "com.reltio.match.token.SoundexMatchToken"
+    PERMISSIVE = True
+    DOC = dict(Comparator.DOC,
+               parameters="none",
+               case_whitespace="Letters only, case-insensitive.",
+               normalisation="American Soundex code (letter + 3 digits) of the whole value (jellyfish).",
+               limitations="Not used by the analysed tenant configuration; the standard Soundex algorithm is used "
+                           "- Reltio's exact implementation (multi-word handling) was not available. Values "
+                           "without letters fall back to normalised equality.")
+
+    def compare(self, a: str, b: str) -> CompareResult:
+        import jellyfish
+        la, lb = _letters(self.ctx.norm(a)), _letters(self.ctx.norm(b))
+        if not la or not lb:
+            eq = self.ctx.norm(a) == self.ctx.norm(b)
+            return CompareResult(eq, 1.0 if eq else 0.0, "no letters; string equality")
+        ca, cb = jellyfish.soundex(la), jellyfish.soundex(lb)
+        eq = ca == cb
+        return CompareResult(eq, 1.0 if eq else 0.0, f"{ca} vs {cb}")
+
+
+@register
+class MetaphoneComparator(Comparator):
+    RELTIO_NAME = "MetaphoneComparator"
+    STATUS = APPROXIMATION
+    DEFAULT_TOKEN_CLASS = "com.reltio.match.token.MetaphoneMatchToken"
+    PERMISSIVE = True
+    DOC = dict(Comparator.DOC,
+               parameters="none",
+               case_whitespace="Case-insensitive, trimmed.",
+               normalisation="Original (single) Metaphone code of the whole value (jellyfish).",
+               limitations="Not used by the analysed tenant configuration; standard Metaphone algorithm, Reltio "
+                           "implementation details (code length) not verified.")
+
+    def compare(self, a: str, b: str) -> CompareResult:
+        import jellyfish
+        ca, cb = jellyfish.metaphone(self.ctx.norm(a)), jellyfish.metaphone(self.ctx.norm(b))
+        if not ca or not cb:
+            eq = self.ctx.norm(a) == self.ctx.norm(b)
+            return CompareResult(eq, 1.0 if eq else 0.0, "no phonetic code; string equality")
+        eq = ca == cb
+        return CompareResult(eq, 1.0 if eq else 0.0, f"{ca} vs {cb}")

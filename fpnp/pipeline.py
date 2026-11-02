@@ -67,7 +67,8 @@ def build_context(s: Settings) -> EngineContext:
         else:
             LOG.add("INPUT_ERROR", "Configured noise dictionary file not found", source=path)
     for key, val, ok in (("RELEVANCE_CONSTRAINT_MODE", s.relevance_constraint_mode, ("veto", "ignore")),
-                         ("RELEVANCE_NESTED_AGGREGATION", s.relevance_nested_aggregation, ("flat", "max", "mean"))):
+                         ("RELEVANCE_NESTED_AGGREGATION", s.relevance_nested_aggregation, ("flat", "max", "mean")),
+                         ("BOTH_NULL_EXACT_MODE", s.both_null_exact_mode, ("fail", "pass", "exclude"))):
         if val not in ok:
             raise SystemExit(f"{key} must be one of {ok}, got '{val}'")
     return EngineContext(case_insensitive=s.case_insensitive, treat_blank_as_null=s.treat_blank_as_null,
@@ -75,7 +76,8 @@ def build_context(s: Settings) -> EngineContext:
                          regexp_rules=load_regexp_rules(s.regexp_replace_dictionary_file),
                          relevance_constraint_mode=s.relevance_constraint_mode,
                          relevance_nested_aggregation=s.relevance_nested_aggregation,
-                         double_metaphone_max_length=s.double_metaphone_max_length)
+                         double_metaphone_max_length=s.double_metaphone_max_length,
+                         both_null_exact_mode=s.both_null_exact_mode)
 
 
 def load_groups(s: Settings) -> List[MatchGroup]:

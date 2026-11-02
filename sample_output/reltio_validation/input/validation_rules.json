@@ -1,0 +1,327 @@
+{
+ "uri": "configuration",
+ "label": "Reltio FP/FN validation configuration",
+ "entityTypes": [
+  {
+   "uri": "configuration/entityTypes/HCP",
+   "matchGroups": [
+    {
+     "uri": "configuration/entityTypes/HCP/matchGroups/R1_ExactNameDobNPI",
+     "label": "R1 Exact Name + DoB + NPI",
+     "type": "automatic",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/DoB",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "ignoreInToken": [
+       "configuration/entityTypes/HCP/attributes/DoB"
+      ],
+      "and": {
+       "exact": [
+        "configuration/entityTypes/HCP/attributes/FirstName",
+        "configuration/entityTypes/HCP/attributes/LastName",
+        "configuration/entityTypes/HCP/attributes/DoB",
+        "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value"
+       ]
+      }
+     }
+    },
+    {
+     "uri": "configuration/entityTypes/HCP/matchGroups/R2_FuzzyNameDob",
+     "label": "R2 Fuzzy First Name + Last Name + DoB",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.token.DoubleMetaphoneMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/DoB",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.comparator.DoubleMetaphoneComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/DoB",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/MiddleName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "and": {
+       "fuzzy": [
+        "configuration/entityTypes/HCP/attributes/FirstName"
+       ],
+       "exact": [
+        "configuration/entityTypes/HCP/attributes/LastName",
+        "configuration/entityTypes/HCP/attributes/DoB"
+       ],
+       "exactOrNull": [
+        "configuration/entityTypes/HCP/attributes/MiddleName"
+       ]
+      }
+     }
+    },
+    {
+     "uri": "configuration/entityTypes/HCP/matchGroups/R3_NameAddress",
+     "label": "R3 Name + Address",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Address/attributes/Zip5",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.comparator.JaroWinklerComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Address/attributes/AddressLine1",
+         "class": "com.reltio.match.comparator.AddressLineComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Address/attributes/Zip5",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Suffix",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "ignoreInToken": [
+       "configuration/entityTypes/HCP/attributes/FirstName",
+       "configuration/entityTypes/HCP/attributes/Address/attributes/AddressLine1"
+      ],
+      "and": {
+       "fuzzy": [
+        "configuration/entityTypes/HCP/attributes/FirstName",
+        "configuration/entityTypes/HCP/attributes/Address/attributes/AddressLine1"
+       ],
+       "exact": [
+        "configuration/entityTypes/HCP/attributes/LastName",
+        "configuration/entityTypes/HCP/attributes/Address/attributes/Zip5"
+       ],
+       "exactOrAllNull": [
+        "configuration/entityTypes/HCP/attributes/Suffix"
+       ]
+      }
+     }
+    },
+    {
+     "uri": "configuration/entityTypes/HCP/matchGroups/R4_Relevance",
+     "label": "R4 Relevance Name/DoB/NPI/Phone",
+     "type": "relevance_based",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.token.DoubleMetaphoneMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+         "class": "com.reltio.match.comparator.DoubleMetaphoneComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+         "class": "com.reltio.match.comparator.DynamicDamerauLevenshteinDistance"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/DoB",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Phone",
+         "class": "com.reltio.match.comparator.PhoneNumberComparator"
+        }
+       ]
+      },
+      "ignoreInToken": [
+       "configuration/entityTypes/HCP/attributes/FirstName",
+       "configuration/entityTypes/HCP/attributes/DoB",
+       "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+       "configuration/entityTypes/HCP/attributes/Phone"
+      ],
+      "and": {
+       "fuzzy": [
+        "configuration/entityTypes/HCP/attributes/FirstName",
+        "configuration/entityTypes/HCP/attributes/LastName"
+       ],
+       "exact": [
+        "configuration/entityTypes/HCP/attributes/DoB"
+       ],
+       "exactOrNull": [
+        "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+        "configuration/entityTypes/HCP/attributes/Phone"
+       ]
+      },
+      "weights": [
+       {
+        "attribute": "configuration/entityTypes/HCP/attributes/FirstName",
+        "weight": 0.2
+       },
+       {
+        "attribute": "configuration/entityTypes/HCP/attributes/LastName",
+        "weight": 0.25
+       },
+       {
+        "attribute": "configuration/entityTypes/HCP/attributes/DoB",
+        "weight": 0.25
+       },
+       {
+        "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+        "weight": 0.2
+       },
+       {
+        "attribute": "configuration/entityTypes/HCP/attributes/Phone",
+        "weight": 0.1
+       }
+      ],
+      "actionThresholds": [
+       {
+        "type": "auto_merge",
+        "threshold": "0.95-1.0",
+        "label": "Auto"
+       },
+       {
+        "type": "potential_match",
+        "threshold": "0.70-0.95",
+        "label": "Review"
+       }
+      ]
+     }
+    },
+    {
+     "uri": "configuration/entityTypes/HCP/matchGroups/R5_NPIOnly",
+     "label": "R5 NPI identifier",
+     "type": "suspect",
+     "scope": "INTERNAL",
+     "useOvOnly": "true",
+     "rule": {
+      "matchTokenClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.token.ExactMatchToken"
+        }
+       ]
+      },
+      "comparatorClasses": {
+       "mapping": [
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        },
+        {
+         "attribute": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value",
+         "class": "com.reltio.match.comparator.BasicStringComparator"
+        }
+       ]
+      },
+      "ignoreInToken": [
+       "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type"
+      ],
+      "equals": [
+       {
+        "uri": "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type",
+        "value": "NPI"
+       }
+      ],
+      "and": {
+       "exact": [
+        "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Type",
+        "configuration/entityTypes/HCP/attributes/Identifiers/attributes/Value"
+       ],
+       "notExactSame": [
+        "configuration/entityTypes/HCP/attributes/Gender"
+       ]
+      }
+     }
+    }
+   ]
+  }
+ ]
+}

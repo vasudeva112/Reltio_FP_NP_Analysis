@@ -1,0 +1,2038 @@
+[
+{
+"uri": "entities/v01",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "John",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Carter",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1970-01-01",
+"ov": true
+}
+],
+"Gender": [
+{
+"value": "M",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v01/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "1234567890",
+"ov": true
+}
+]
+}
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v01/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "10 Main St",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Dallas",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "75001",
+"ov": true
+}
+]
+}
+}
+],
+"Phone": [
+{
+"value": "+1 (214) 555-0101",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v01"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v01"
+}
+]
+},
+{
+"uri": "entities/v02",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "JOHN",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "carter",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1970-01-01",
+"ov": true
+}
+],
+"Gender": [
+{
+"value": "M",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v02/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "1234567890",
+"ov": true
+}
+]
+}
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v02/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "10 Main Street",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Dallas",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "75001",
+"ov": true
+}
+]
+}
+}
+],
+"Phone": [
+{
+"value": "214-555-0101",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v02"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v02"
+}
+]
+},
+{
+"uri": "entities/v03",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Katherine",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Lowe",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1980-02-02",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v03/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "2000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v03"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v03"
+}
+]
+},
+{
+"uri": "entities/v04",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Catherine",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Lowe",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1980-02-02",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v04/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "2000000002",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v04"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v04"
+}
+]
+},
+{
+"uri": "entities/v05",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Jonathan",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Smith",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1975-03-03",
+"ov": true
+}
+],
+"Phone": [
+{
+"value": "4695550199",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v05"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v05"
+}
+]
+},
+{
+"uri": "entities/v06",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Jonathon",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Smyth",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1975-03-03",
+"ov": true
+}
+],
+"Phone": [
+{
+"value": "469-555-0199",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v06"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v06"
+}
+]
+},
+{
+"uri": "entities/v07",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Maria",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Gomez",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1985-04-04",
+"ov": true
+}
+],
+"MiddleName": [
+{
+"value": "Luisa",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v07"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v07"
+}
+]
+},
+{
+"uri": "entities/v08",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Maria",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Gomez",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1985-04-04",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v08"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v08"
+}
+]
+},
+{
+"uri": "entities/v09",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Ahmed",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Khan",
+"ov": true
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v09/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "77 Lake Rd",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Austin",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "73301",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v09"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v09"
+}
+]
+},
+{
+"uri": "entities/v10",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Ahmad",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Khan",
+"ov": true
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v10/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "77 Lake Road",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Austin",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "73301",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v10"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v10"
+}
+]
+},
+{
+"uri": "entities/v11",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Grace",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Hopper",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1906-12-09",
+"ov": true
+}
+],
+"Phone": [
+{
+"value": "2125550001",
+"ov": true
+},
+{
+"value": "2125550002",
+"ov": true
+}
+],
+"Email": [
+{
+"value": "grace@navy.mil",
+"ov": true
+},
+{
+"value": "gh@yale.edu",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v11"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v11"
+}
+]
+},
+{
+"uri": "entities/v12",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Grace",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Hopper",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1906-12-09",
+"ov": true
+}
+],
+"Phone": [
+{
+"value": "(212) 555-0002",
+"ov": true
+}
+],
+"Email": [
+{
+"value": "gh@yale.edu",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v12"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v12"
+}
+]
+},
+{
+"uri": "entities/v13",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Emily",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Stone",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1990-05-05",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v13/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "3000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v13"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v13"
+}
+]
+},
+{
+"uri": "entities/v14",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Emily",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Stone",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1990-05-06",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v14/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "3000000002",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v14"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v14"
+}
+]
+},
+{
+"uri": "entities/v15",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Raj",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Patel",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1965-06-06",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v15/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "4000000001",
+"ov": true
+}
+]
+}
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v15/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "5 Oak Ave",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Plano",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "75024",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v15"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v15"
+}
+]
+},
+{
+"uri": "entities/v16",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Raj",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Patel",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1965-06-06",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v16/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "4000000009",
+"ov": true
+}
+]
+}
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v16/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "5 Oak Ave",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Plano",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "75024",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v16"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v16"
+}
+]
+},
+{
+"uri": "entities/v17",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Michael",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Brown",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1972-07-07",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v17/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "5000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v17"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v17"
+}
+]
+},
+{
+"uri": "entities/v18",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Michael",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Brown",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1981-08-08",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v18/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "5999999999",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v18"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v18"
+}
+]
+},
+{
+"uri": "entities/v19",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Olivia",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Reed",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1988-09-09",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v19/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "6000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v19"
+},
+{
+"type": "configuration/sources/NPPES",
+"value": "N6000000001"
+},
+{
+"type": "configuration/sources/Veeva",
+"value": "VV-19"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v19"
+}
+]
+},
+{
+"uri": "entities/v20",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Olivia",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Reed",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1988-09-09",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v20/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "6000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/Claims",
+"value": "C-20"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v20"
+}
+]
+},
+{
+"uri": "entities/v21",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Henry",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Ford",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1963-07-30",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v21/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "7000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "SHARED-21"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v21"
+}
+]
+},
+{
+"uri": "entities/v22",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Henry",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Ford",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1963-07-30",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v22/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "7000000001",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/Veeva",
+"value": "V-22"
+},
+{
+"type": "configuration/sources/CRM",
+"value": "SHARED-21"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v22"
+}
+]
+},
+{
+"uri": "entities/v23",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Robert",
+"ov": true
+},
+{
+"value": "Bob",
+"ov": false
+}
+],
+"LastName": [
+{
+"value": "King",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1977-10-10",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v23"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v23"
+}
+]
+},
+{
+"uri": "entities/v24",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Bob",
+"ov": true
+},
+{
+"value": "Robert",
+"ov": false
+}
+],
+"LastName": [
+{
+"value": "King",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1977-10-10",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v24"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v24"
+}
+]
+},
+{
+"uri": "entities/v30",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Zora",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Neale",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1980-04-13",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v30/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000030",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v30"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v30"
+}
+]
+},
+{
+"uri": "entities/v31",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Yuri",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Gagar",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1981-05-14",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v31/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000031",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v31"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v31"
+}
+]
+},
+{
+"uri": "entities/v32",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Xena",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Warri",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1982-06-15",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v32/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000032",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v32"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v32"
+}
+]
+},
+{
+"uri": "entities/v33",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Wade",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Wilson",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1983-07-16",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v33/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000033",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v33"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v33"
+}
+]
+},
+{
+"uri": "entities/v34",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Uma",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Turman",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1984-08-17",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v34/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000034",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v34"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v34"
+}
+]
+},
+{
+"uri": "entities/v35",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Tara",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Reid",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1985-09-18",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v35/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000035",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v35"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v35"
+}
+]
+},
+{
+"uri": "entities/v36",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Seth",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Rogen",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1986-01-10",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v36/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000036",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v36"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v36"
+}
+]
+},
+{
+"uri": "entities/v37",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Rosa",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Parks",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1987-02-11",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v37/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000037",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v37"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v37"
+}
+]
+},
+{
+"uri": "entities/v38",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Quincy",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Jones",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1988-03-12",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v38/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000038",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v38"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v38"
+}
+]
+},
+{
+"uri": "entities/v39",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "Pia",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Mia",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1989-04-13",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v39/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "9000000039",
+"ov": true
+}
+]
+}
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v39"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v39"
+}
+]
+},
+{
+"uri": "entities/v01",
+"type": "configuration/entityTypes/HCP",
+"attributes": {
+"FirstName": [
+{
+"value": "John",
+"ov": true
+}
+],
+"LastName": [
+{
+"value": "Carter",
+"ov": true
+}
+],
+"DoB": [
+{
+"value": "1970-01-01",
+"ov": true
+}
+],
+"Gender": [
+{
+"value": "M",
+"ov": true
+}
+],
+"Identifiers": [
+{
+"ov": true,
+"uri": "entities/v01/attributes/Identifiers/i0",
+"value": {
+"Type": [
+{
+"value": "NPI",
+"ov": true
+}
+],
+"Value": [
+{
+"value": "1234567890",
+"ov": true
+}
+]
+}
+}
+],
+"Address": [
+{
+"ov": true,
+"uri": "entities/v01/attributes/Address/a0",
+"value": {
+"AddressLine1": [
+{
+"value": "10 Main St",
+"ov": true
+}
+],
+"City": [
+{
+"value": "Dallas",
+"ov": true
+}
+],
+"Zip5": [
+{
+"value": "75001",
+"ov": true
+}
+]
+}
+}
+],
+"Phone": [
+{
+"value": "+1 (214) 555-0101",
+"ov": true
+}
+]
+},
+"createdTime": 1700000000000,
+"updatedTime": 1760000000000,
+"crosswalks": [
+{
+"type": "configuration/sources/CRM",
+"value": "v01"
+},
+{
+"type": "configuration/sources/ReltioCleanser",
+"value": "v01"
+}
+]
+}
+]

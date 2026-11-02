@@ -1,0 +1,142 @@
+{
+  "mode": "reltio-fp",
+  "started_at": "2026-11-02T16:44:33",
+  "code_version": "1.0.0",
+  "code_fingerprint": "38cb1a73ceddfbf4",
+  "python": "3.13.18",
+  "platform": "Linux-6.18.44-fc-v185-x86_64-with-glibc2.39",
+  "settings_file": "/home/user/Reltio_FP_NP_Analysis/fpnp.properties",
+  "l3_config_file": "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_rules.json",
+  "l3_config_sha256": "34468215be0f6bf65cba638eecb8b50ad11e1169c905a688efd120c99197f583",
+  "report_files": {
+    "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_potential_matches.csv": "6be78a8db454d5d2725b609adbaeaaca45f63c82c5ecd2dd046d4b52d6988632"
+  },
+  "steward_decisions_sha256": "b37aa3d9db09da302a6b7abd0014d23942e2bca147a1203aa3b61424163d2960",
+  "parameters": {
+    "tenant_properties": "/home/user/Reltio_FP_NP_Analysis/D:/Office/Reltio/Python/Potential_Matches/dev-ov_02.properties",
+    "l3_config_file": "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_rules.json",
+    "entity_types": [],
+    "target_rule": "",
+    "report_files": [
+      "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_potential_matches.csv"
+    ],
+    "entity_export_paths": [
+      "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_entities.json"
+    ],
+    "steward_decisions_file": "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_steward_decisions.csv",
+    "name_dictionary_file": "",
+    "regexp_replace_dictionary_file": "",
+    "noise_dictionary_files": {},
+    "output_dir": "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/report",
+    "case_insensitive": true,
+    "treat_blank_as_null": true,
+    "global_candidate_pooling": true,
+    "relevance_constraint_mode": "ignore",
+    "relevance_nested_aggregation": "mean",
+    "double_metaphone_max_length": 4,
+    "both_null_exact_mode": "fail",
+    "max_token_collision": 300,
+    "max_phrases_per_entity": 2000,
+    "blocking_enabled": true,
+    "blocking_max_block_size": 1000,
+    "blocking_attribute_pairs": true,
+    "blocking_phonetic": true,
+    "sorted_neighborhood_window": 10,
+    "exhaustive": false,
+    "exhaustive_max_entities": 5000,
+    "batch_size": 5000,
+    "workers": 1,
+    "resume": false,
+    "excel_row_cap": 200000,
+    "write_parquet": true,
+    "fp_suspect_threshold": 5.0,
+    "fp_review_threshold": 2.0,
+    "low_margin": 0.03,
+    "high_frequency_entities": 5,
+    "high_frequency_factor": 5.0,
+    "high_frequency_min_distinct_ratio": 0.3,
+    "risk_weights": {
+      "CONSTRAINT_VIOLATED": 3.0,
+      "FAILED_OPERAND_STILL_MATCHED": 3.0,
+      "POPULATED_VALUES_DIFFER": 2.0,
+      "NULL_CONTRIBUTION": 0.5,
+      "ONE_SIDED_NULL": 1.5,
+      "PERMISSIVE_COMPARATOR": 1.0,
+      "CROSS_INSTANCE_NESTED_MATCH": 2.0,
+      "MULTI_VALUE_PARTIAL": 0.5,
+      "LOW_MARGIN": 1.0,
+      "HIGH_FREQUENCY_VALUE": 2.0,
+      "PYTHON_DISAGREES": 1.0,
+      "APPROXIMATION_DEPENDENT": 0.0,
+      "RELTIO_RELEVANCE_DIFFERS": 0.0
+    },
+    "score_operators": [
+      "fuzzy"
+    ],
+    "score_triggers": [
+      "Disagree",
+      "Partial",
+      "Null",
+      "Phonetic collision",
+      "Fuzzy collision"
+    ],
+    "score_similarity_cutoff": 0.85,
+    "segment_label": "Bene Record",
+    "segment_crosswalk_regex": "^CIF:9000000",
+    "html_include_values": false,
+    "verify_sample_size": 50,
+    "verify_min_interval_sec": 0.5,
+    "verify_seed": 42,
+    "scoring_config_file": "/home/user/Reltio_FP_NP_Analysis/config/scoring_config.json",
+    "known_matches_file": "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_known_matches.csv",
+    "merge_map_file": "",
+    "fn_blocking_strategies": [],
+    "fn_custom_blocking_keys": [],
+    "fn_max_block_size": 100,
+    "fn_max_pairs_per_strategy": 0,
+    "fn_min_similarity": 60.0,
+    "source_file": "/home/user/Reltio_FP_NP_Analysis/fpnp.properties"
+  },
+  "rows": 8,
+  "stats": {
+    "report_rows": 8,
+    "Confirmed Genuine Duplicate": 2,
+    "Likely Genuine Duplicate": 3,
+    "Potential False Positive": 1,
+    "Confirmed False Positive": 1,
+    "Requires Manual Review": 1
+  },
+  "scoring": {
+    "bands": {
+      "exact": 100.0,
+      "strong_min": 80.0,
+      "partial_min": 40.0,
+      "weak_min": 1.0
+    },
+    "partial_similarity_floor": 0.7,
+    "exact_class_mismatch": "zero",
+    "null_policy": "exclude",
+    "both_null_score": 100.0,
+    "one_null_score": 0.0,
+    "weight_source": "rule",
+    "attribute_weights": {},
+    "critical_attributes": [],
+    "auto_detect_identifiers": true,
+    "similarity_groups": {
+      "high": 85.0,
+      "medium": 60.0
+    },
+    "fp": {
+      "genuine_min_score": 85.0,
+      "candidate_max_score": 60.0
+    },
+    "fn": {
+      "high_min_score": 85.0,
+      "medium_min_score": 70.0,
+      "low_min_score": 60.0
+    }
+  },
+  "entity_paths": [
+    "/home/user/Reltio_FP_NP_Analysis/sample_output/reltio_validation/input/validation_entities.json"
+  ]
+}

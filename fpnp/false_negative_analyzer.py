@@ -149,7 +149,7 @@ class FalseNegativeAnalyzer:
         h.update(str(len(self.store)).encode())
         for k in ("max_token_collision", "blocking_enabled", "blocking_max_block_size", "exhaustive",
                   "sorted_neighborhood_window", "case_insensitive", "treat_blank_as_null",
-                  "relevance_constraint_mode", "relevance_nested_aggregation"):
+                  "relevance_constraint_mode", "relevance_nested_aggregation", "both_null_exact_mode"):
             h.update(f"{k}={getattr(self.s, k)}".encode())
         return h.hexdigest()
 
@@ -193,7 +193,8 @@ class FalseNegativeAnalyzer:
                             regexp_rules=self.engine.ctx.regexp_rules,
                             relevance_constraint_mode=self.engine.ctx.relevance_constraint_mode,
                             relevance_nested_aggregation=self.engine.ctx.relevance_nested_aggregation,
-                            double_metaphone_max_length=self.engine.ctx.double_metaphone_max_length)
+                            double_metaphone_max_length=self.engine.ctx.double_metaphone_max_length,
+                            both_null_exact_mode=self.engine.ctx.both_null_exact_mode)
             with ProcessPoolExecutor(self.s.workers, initializer=_worker_init,
                                      initargs=([g.raw for g in self.groups], ctx_args, recs)) as pool:
                 for n, (results, counts, snap) in enumerate(pool.map(_worker_batch, batches), 1):
