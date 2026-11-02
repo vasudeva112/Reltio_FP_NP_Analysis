@@ -1,0 +1,4 @@
+EntityURI1,EntityURI2,Decision
+entities/v01,entities/v02,MATCH
+entities/v17,entities/v18,NOT_A_MATCH
+entities/v11,entities/v12,MATCH

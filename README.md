@@ -400,7 +400,10 @@ by another:
 - `custom`: e.g. `LastName+DoB;FirstName:phonetic+LastName;Identifiers.Value:digits;DoB:year;Name:prefix4`.
 
 `single` and `sorted` (neighbourhood) raise recall at a much higher pair count and are opt-in. Blocks above
-`FN_MAX_BLOCK_SIZE` are skipped and counted. Nothing is compared all-pairs except in `--exhaustive` mode,
+`FN_MAX_BLOCK_SIZE` (default 100) are skipped and counted. A strategy that would project more pairs than
+`FN_MAX_PAIRS_PER_STRATEGY` (default max(1M, 20 × entities)) is skipped as low-selectivity. Both show in
+Blocking Analysis. Nullable (`exactOrNull` / `exactOrAllNull`) attributes and filters are never used as
+blocking keys. Nothing is compared all-pairs except in `--exhaustive` mode,
 which is capped by `EXHAUSTIVE_MAX_ENTITIES`.
 
 ### Commands

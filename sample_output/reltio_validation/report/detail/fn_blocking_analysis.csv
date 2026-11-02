@@ -1,0 +1,30 @@
+﻿BlockingKey,BlockingStrategy,StrategyName,EntityType,NumberOfEntities,Blocks,BlocksWithPairs,LargestBlock,OversizedBlocksSkipped,EntitiesInSkippedBlocks,SkippedLowSelectivity,ProjectedPairs,CandidatePairsGenerated,PairsFoundOnlyByThisStrategy,MatchingCandidates,ReportedFNCandidates,Description
+match tokens of R1_ExactNameDobNPI,reltio_tokens,reltio_tokens:R1_ExactNameDobNPI,HCP,24,21,3,2,0,0,,0,3,0,1,1,Reltio-style match-token phrases of the rule
+match tokens of R1_ExactNameDobNPI,reltio_tokens_overcollided,reltio_tokens_overcollided:R1_ExactNameDobNPI,HCP,0,0,0,0,0,0,,0,0,0,0,0,Shared phrases above MAX_TOKEN_COLLISION (Reltio skips these)
+FirstName + LastName + DoB + Identifiers.Value,rule_keys,rule_keys:R1_ExactNameDobNPI,HCP,24,21,3,2,0,0,,3,3,0,1,1,"All exact/fuzzy-compared attributes of the rule, exact values"
+FirstName + LastName,pairs,pairs:FirstName+LastName,HCP,34,26,8,2,0,0,,8,8,0,3,3,Two attributes compared by the same rule
+DoB + FirstName,pairs,pairs:DoB+FirstName,HCP,32,26,6,2,0,0,,6,6,0,3,3,Two attributes compared by the same rule
+FirstName + Identifiers.Value,pairs,pairs:FirstName+Identifiers.Value,HCP,24,21,3,2,0,0,,3,3,0,1,1,Two attributes compared by the same rule
+DoB + LastName,pairs,pairs:DoB+LastName,HCP,32,24,8,2,0,0,,8,8,0,4,4,Two attributes compared by the same rule
+Identifiers.Value + LastName,pairs,pairs:Identifiers.Value+LastName,HCP,24,21,3,2,0,0,,3,3,0,1,1,Two attributes compared by the same rule
+DoB + Identifiers.Value,pairs,pairs:DoB+Identifiers.Value,HCP,24,21,3,2,0,0,,3,3,0,1,1,Two attributes compared by the same rule
+match tokens of R2_FuzzyNameDob,reltio_tokens,reltio_tokens:R2_FuzzyNameDob,HCP,32,34,10,2,0,0,,0,10,0,3,3,Reltio-style match-token phrases of the rule
+match tokens of R2_FuzzyNameDob,reltio_tokens_overcollided,reltio_tokens_overcollided:R2_FuzzyNameDob,HCP,0,0,0,0,0,0,,0,0,0,0,0,Shared phrases above MAX_TOKEN_COLLISION (Reltio skips these)
+FirstName + LastName + DoB,rule_keys,rule_keys:R2_FuzzyNameDob,HCP,32,26,6,2,0,0,,6,6,0,3,3,"All exact/fuzzy-compared attributes of the rule, exact values"
+FirstName:phonetic + LastName + DoB,rule_phonetic,rule_phonetic:R2_FuzzyNameDob,HCP,32,25,7,2,0,0,,7,7,0,3,3,Rule attributes; fuzzy/phonetic ones by Double Metaphone code
+match tokens of R3_NameAddress,reltio_tokens,reltio_tokens:R3_NameAddress,HCP,6,3,3,2,0,0,,0,3,0,1,1,Reltio-style match-token phrases of the rule
+match tokens of R3_NameAddress,reltio_tokens_overcollided,reltio_tokens_overcollided:R3_NameAddress,HCP,0,0,0,0,0,0,,0,0,0,0,0,Shared phrases above MAX_TOKEN_COLLISION (Reltio skips these)
+FirstName + Address.AddressLine1 + LastName + Address.Zip5,rule_keys,rule_keys:R3_NameAddress,HCP,6,5,1,2,0,0,,1,1,0,1,1,"All exact/fuzzy-compared attributes of the rule, exact values"
+FirstName:phonetic + Address.AddressLine1:phonetic + LastName + Address.Zip5,rule_phonetic,rule_phonetic:R3_NameAddress,HCP,6,3,3,2,0,0,,3,3,0,1,1,Rule attributes; fuzzy/phonetic ones by Double Metaphone code
+Address.AddressLine1 + FirstName,pairs,pairs:Address.AddressLine1+FirstName,HCP,6,5,1,2,0,0,,1,1,0,1,1,Two attributes compared by the same rule
+Address.Zip5 + FirstName,pairs,pairs:Address.Zip5+FirstName,HCP,6,4,2,2,0,0,,2,2,0,1,1,Two attributes compared by the same rule
+Address.AddressLine1 + LastName,pairs,pairs:Address.AddressLine1+LastName,HCP,6,5,1,2,0,0,,1,1,0,1,1,Two attributes compared by the same rule
+Address.AddressLine1 + Address.Zip5,pairs,pairs:Address.AddressLine1+Address.Zip5,HCP,6,5,1,2,0,0,,1,1,0,1,1,Two attributes compared by the same rule
+Address.Zip5 + LastName,pairs,pairs:Address.Zip5+LastName,HCP,6,3,3,2,0,0,,3,3,0,1,1,Two attributes compared by the same rule
+match tokens of R4_Relevance,reltio_tokens,reltio_tokens:R4_Relevance,HCP,34,26,13,3,0,0,,0,15,2,4,4,Reltio-style match-token phrases of the rule
+match tokens of R4_Relevance,reltio_tokens_overcollided,reltio_tokens_overcollided:R4_Relevance,HCP,0,0,0,0,0,0,,0,0,0,0,0,Shared phrases above MAX_TOKEN_COLLISION (Reltio skips these)
+FirstName:phonetic + LastName:phonetic + DoB,rule_phonetic,rule_phonetic:R4_Relevance,HCP,32,24,8,2,0,0,,8,8,0,3,3,Rule attributes; fuzzy/phonetic ones by Double Metaphone code
+match tokens of R5_NPIOnly,reltio_tokens,reltio_tokens:R5_NPIOnly,HCP,24,21,3,2,0,0,,0,3,0,1,1,Reltio-style match-token phrases of the rule
+match tokens of R5_NPIOnly,reltio_tokens_overcollided,reltio_tokens_overcollided:R5_NPIOnly,HCP,0,0,0,0,0,0,,0,0,0,0,0,Shared phrases above MAX_TOKEN_COLLISION (Reltio skips these)
+Identifiers.Type + Identifiers.Value,rule_keys,rule_keys:R5_NPIOnly,HCP,24,21,3,2,0,0,,3,3,0,1,1,"All exact/fuzzy-compared attributes of the rule, exact values"
+Identifiers.Type + Identifiers.Value,pairs,pairs:Identifiers.Type+Identifiers.Value,HCP,24,21,3,2,0,0,,3,3,0,1,1,Two attributes compared by the same rule

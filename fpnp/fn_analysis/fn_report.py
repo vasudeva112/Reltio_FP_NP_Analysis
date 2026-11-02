@@ -34,7 +34,7 @@ ATTR_COLUMNS = ["PairID", "EntityA", "EntityB", "MatchRule", "Attribute", "Attri
                 "AnalyticalSimilarity", "NullCase", "MultiValue", "Nested", "Conflict", "Cleansing",
                 "FidelityStatus", "Explanation"]
 BLOCK_COLUMNS = ["BlockingKey", "BlockingStrategy", "StrategyName", "EntityType", "NumberOfEntities", "Blocks",
-                 "BlocksWithPairs", "LargestBlock", "OversizedBlocksSkipped", "EntitiesInSkippedBlocks",
+                 "BlocksWithPairs", "LargestBlock", "OversizedBlocksSkipped", "EntitiesInSkippedBlocks", "SkippedLowSelectivity", "ProjectedPairs",
                  "CandidatePairsGenerated", "PairsFoundOnlyByThisStrategy", "MatchingCandidates",
                  "ReportedFNCandidates", "Description"]
 

@@ -25,6 +25,7 @@ Per strategy the Blocking Analysis reports: entities with a key, blocks, oversiz
 candidate pairs generated, pairs only this strategy found, and (after evaluation) matching candidates.
 """
 
+import heapq
 import itertools
 import logging
 import re
@@ -64,7 +65,8 @@ class BlockingStrategy:
     stats: Dict[str, int] = field(default_factory=lambda: {
         "entities_with_key": 0, "blocks": 0, "blocks_with_pairs": 0, "oversized_blocks_skipped": 0,
         "entities_in_skipped_blocks": 0, "largest_block": 0, "candidate_pairs": 0, "unique_pairs_only_here": 0,
-        "matching_candidates": 0, "reported_candidates": 0})
+        "matching_candidates": 0, "reported_candidates": 0, "skipped_low_selectivity": 0,
+        "projected_pairs": 0})
     largest: List[Tuple[int, str, bool]] = field(default_factory=list)   # (size, key, skipped)
 
     @property
@@ -91,10 +93,12 @@ def _positive_compared_ops(g: MatchGroup) -> List[Node]:
 
 
 def _compared_attrs(g: MatchGroup) -> List[str]:
-    """Every attribute compared by any exact / fuzzy / exactOr* operand (incl. under OR), no filters."""
+    """Attributes a duplicate is expected to share: compared with exact / fuzzy (incl. under OR) or in a multi
+    group. exactOrNull / exactOrAllNull attributes are nullable by design and filters are not similarity, so
+    neither makes a useful blocking key."""
     out = []
     for n in g.root.walk():
-        if n.kind == "op" and n.op not in CONSTRAINT_OPS and n.op != "multi" and not n.op.startswith("not"):
+        if n.kind == "op" and n.op in ("exact", "fuzzy"):
             if n.attribute not in out:
                 out.append(n.attribute)
         elif n.kind == "op" and n.op == "multi":
@@ -198,7 +202,7 @@ class BlockingEngine:
 
     def __init__(self, records, by_type: Dict[str, List[int]], groups: Sequence[MatchGroup], engine: RuleEngine,
                  strategies: List[BlockingStrategy], max_block_size: int = 500, max_token_collision: int = 300,
-                 sorted_window: int = 10, max_phrases: int = 2000):
+                 sorted_window: int = 10, max_phrases: int = 2000, max_pairs_per_strategy: int = 0):
         self.records = records
         self.by_type = by_type
         self.groups = {g.uri: g for g in groups}
@@ -209,6 +213,7 @@ class BlockingEngine:
         self.max_collision = max_token_collision
         self.window = sorted_window
         self.max_phrases = max_phrases
+        self.max_pairs_cfg = max_pairs_per_strategy       # 0 = automatic: max(1M, 20 x entities of the type)
         self.pairs: Dict[int, int] = {}                  # (i << 32 | j) -> strategy bitmask
         self.seconds = 0.0
 
@@ -238,6 +243,14 @@ class BlockingEngine:
                 break
         return out
 
+    @staticmethod
+    def _track_largest(s: BlockingStrategy, n: int, key: str, skipped: bool, top: int = 10) -> None:
+        item = (n, key, skipped)
+        if len(s.largest) < top:
+            heapq.heappush(s.largest, item)
+        elif item > s.largest[0]:
+            heapq.heapreplace(s.largest, item)
+
     def _emit_block(self, s: BlockingStrategy, bit: int, key: str, members: List[int], limit: int) -> None:
         n = len(members)
         if n < 2:
@@ -246,10 +259,10 @@ class BlockingEngine:
         if n > limit:
             s.stats["oversized_blocks_skipped"] += 1
             s.stats["entities_in_skipped_blocks"] += n
-            s.largest.append((n, key, True))
+            self._track_largest(s, n, key, True)
             return
         s.stats["blocks_with_pairs"] += 1
-        s.largest.append((n, key, False))
+        self._track_largest(s, n, key, False)
         for i, j in itertools.combinations(members, 2):
             k = self.key(i, j)
             s.stats["candidate_pairs"] += 1
@@ -279,6 +292,19 @@ class BlockingEngine:
                     for k in ks:
                         buckets[k].append(i)
                 s.stats["blocks"] = len(buckets)
+                projected = sum(len(m) * (len(m) - 1) // 2 for m in buckets.values() if 2 <= len(m) <= self.max_block)
+                s.stats["projected_pairs"] = projected
+                budget = self.max_pairs_cfg or max(1_000_000, 20 * len(idxs))
+                if projected > budget:
+                    # low selectivity: would flood the evaluation; reported, never silently dropped
+                    s.stats["skipped_low_selectivity"] = 1
+                    LOG.add("BLOCKING_LOW_SELECTIVITY", f"Strategy {s.name} would generate {projected:,} pairs "
+                                                        f"(> {budget:,}) - skipped; see Blocking Analysis",
+                            severity="INFO")
+                    for k, members in buckets.items():
+                        if len(members) >= 2:
+                            self._track_largest(s, len(members), k, True)
+                    continue
                 for k, members in buckets.items():
                     self._emit_block(s, bit, k, members, self.max_block)
             s.largest = sorted(s.largest, reverse=True)[:10]
@@ -368,6 +394,8 @@ class BlockingEngine:
                 "EntitiesInSkippedBlocks": st["entities_in_skipped_blocks"],
                 "CandidatePairsGenerated": st["candidate_pairs"],
                 "PairsFoundOnlyByThisStrategy": st["unique_pairs_only_here"],
+                "SkippedLowSelectivity": "yes" if st["skipped_low_selectivity"] else "",
+                "ProjectedPairs": st["projected_pairs"],
                 "MatchingCandidates": st["matching_candidates"],
                 "ReportedFNCandidates": st["reported_candidates"],
             })

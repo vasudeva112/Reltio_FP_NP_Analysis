@@ -270,3 +270,23 @@ def test_similar_but_rule_fails_is_separate():
     assert ps.overall == 100 and not ps.outcome.matched
     not_row = next(a for a in ps.attributes if a.attribute == "FirstName")
     assert not_row.role.startswith("NOT") and not not_row.in_score
+
+
+def test_blocking_skips_nullable_attributes_and_low_selectivity():
+    groups = load_groups(td.rules_config())
+    names = {s.name for s in derive_strategies(groups, ["pairs", "single"])}
+    assert "single:MiddleName" not in names and not any("MiddleName" in n for n in names)   # exactOrNull attr
+    assert "single:FirstName" in names
+    # a strategy whose blocks would exceed the pair budget is skipped and reported, not silently dropped
+    from fpnp.fn_analysis.blocking_engine import BlockingEngine
+    P = td.P
+    recs = [build_record(td.hcp(f"x{i}", "Ann", f"L{i % 3}", "1980-01-01"), [P + "FirstName", P + "LastName"])
+            for i in range(60)]
+    strat = [s for s in derive_strategies(groups, ["single"]) if s.name in ("single:FirstName", "single:LastName")]
+    eng = RuleEngine(groups, EngineContext())
+    be = BlockingEngine(recs, {"HCP": list(range(60))}, groups, eng, strat, max_block_size=100,
+                        max_pairs_per_strategy=1000)
+    be.run()
+    rows = {r["StrategyName"]: r for r in be.analysis_rows()}
+    assert rows["single:FirstName"]["SkippedLowSelectivity"] == "yes"           # 1770 projected pairs > 1000
+    assert rows["single:LastName"]["SkippedLowSelectivity"] == "" and rows["single:LastName"]["CandidatePairsGenerated"] == 570

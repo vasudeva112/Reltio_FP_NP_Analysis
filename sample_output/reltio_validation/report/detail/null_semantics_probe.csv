@@ -1,0 +1,13 @@
+﻿MatchRule,MatchRuleURI,BothNullExactMode,RowsWithNullOperands,BothNullExactOperands,OneSidedNullOperands,ReltioRowsReproduced,ReproductionRate,RowsWithReltioRelevance,MeanAbsRelevanceError,Recommendation
+R2 Fuzzy First Name + Last Name + DoB,configuration/entityTypes/HCP/matchGroups/R2_FuzzyNameDob,fail,3,1,0,2,0.6667,0,,
+R2 Fuzzy First Name + Last Name + DoB,configuration/entityTypes/HCP/matchGroups/R2_FuzzyNameDob,pass,3,1,0,3,1.0,0,,
+R2 Fuzzy First Name + Last Name + DoB,configuration/entityTypes/HCP/matchGroups/R2_FuzzyNameDob,exclude,3,1,0,3,1.0,0,,
+R2 Fuzzy First Name + Last Name + DoB,configuration/entityTypes/HCP/matchGroups/R2_FuzzyNameDob,RECOMMENDATION,,,,,,,,Mode 'pass' agrees best with Reltio (reproduces 100.0% of 3 null-affected rows).
+R4 Relevance Name/DoB/NPI/Phone,configuration/entityTypes/HCP/matchGroups/R4_Relevance,fail,3,0,0,1,0.3333,3,0.1533,
+R4 Relevance Name/DoB/NPI/Phone,configuration/entityTypes/HCP/matchGroups/R4_Relevance,pass,3,0,0,1,0.3333,3,0.1533,
+R4 Relevance Name/DoB/NPI/Phone,configuration/entityTypes/HCP/matchGroups/R4_Relevance,exclude,3,0,0,1,0.3333,3,0.1533,
+R4 Relevance Name/DoB/NPI/Phone,configuration/entityTypes/HCP/matchGroups/R4_Relevance,RECOMMENDATION,,,,,,,,No both-null exact/fuzzy operands in Reltio's results for this rule: no evidence either way.
+R3 Name + Address,configuration/entityTypes/HCP/matchGroups/R3_NameAddress,fail,1,0,0,1,1.0,0,,
+R3 Name + Address,configuration/entityTypes/HCP/matchGroups/R3_NameAddress,pass,1,0,0,1,1.0,0,,
+R3 Name + Address,configuration/entityTypes/HCP/matchGroups/R3_NameAddress,exclude,1,0,0,1,1.0,0,,
+R3 Name + Address,configuration/entityTypes/HCP/matchGroups/R3_NameAddress,RECOMMENDATION,,,,,,,,No both-null exact/fuzzy operands in Reltio's results for this rule: no evidence either way.

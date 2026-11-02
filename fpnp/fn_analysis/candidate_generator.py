@@ -43,7 +43,8 @@ def generate_candidates(loaded: LoadedEntities, groups: Sequence[MatchGroup], en
     recs = loaded.store.records
     strategies = derive_strategies(groups, strategy_kinds or None, custom_keys, engine)
     be = BlockingEngine(recs, loaded.store.by_type, groups, engine, strategies,
-                        max_block_size=getattr(settings, "fn_max_block_size", 500),
+                        max_block_size=getattr(settings, "fn_max_block_size", 100),
+                        max_pairs_per_strategy=getattr(settings, "fn_max_pairs_per_strategy", 0),
                         max_token_collision=getattr(settings, "max_token_collision", 300),
                         sorted_window=getattr(settings, "sorted_neighborhood_window", 10),
                         max_phrases=getattr(settings, "max_phrases_per_entity", 2000))

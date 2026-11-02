@@ -121,7 +121,8 @@ class Settings:
     merge_map_file: str = ""                  # optional CSV loser,winner of merged entities
     fn_blocking_strategies: List[str] = field(default_factory=list)   # blank = every built-in strategy
     fn_custom_blocking_keys: List[str] = field(default_factory=list)  # e.g. LastName+DoB, Identifiers.Value:digits
-    fn_max_block_size: int = 500
+    fn_max_block_size: int = 100              # entities per block (pairs per block = n(n-1)/2)
+    fn_max_pairs_per_strategy: int = 0        # 0 = auto: max(1M, 20 x entities); larger strategies are skipped
     fn_min_similarity: float = 60.0           # pairs below this and failing every rule are not reported
 
     source_file: str = ""
