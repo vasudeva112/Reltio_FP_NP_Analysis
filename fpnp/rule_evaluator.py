@@ -195,6 +195,8 @@ class RuleEngine:
         rel_mode = g.is_relevance
         na: List[str] = []
         passed, rel = self._eval(g, g.root, pl, pr, rel_mode, 0, False, ev.trace, na, ev, top=True)
+        if rel is None:                                   # every operand neutral (both-null exclude mode)
+            rel = 1.0 if passed else 0.0
         ev.logic_passed = passed
         if na:
             ev.applicable = False
@@ -273,7 +275,7 @@ class RuleEngine:
             lf = self._leaf(g, node, pl, pr, ev)
             trace.append(TraceRow(node.path, depth, "op", node.describe(), lf.passed,
                                   lf.relevance if rel_mode else None, weight, lf, under_not))
-            return lf.passed, lf.relevance
+            return lf.passed, (None if lf.excluded else lf.relevance)
 
         row = TraceRow(node.path, depth, node.kind, node.kind.upper(), False, None, weight, None, under_not)
         trace.append(row)
@@ -281,7 +283,7 @@ class RuleEngine:
         if node.kind == "not":
             p, r = self._eval(g, node.children[0], pl, pr, rel_mode, depth + 1, True, trace, na, ev,
                               False, 1.0 if rel_mode else None, True)
-            row.passed, rel = (not p), 1.0 - r
+            row.passed, rel = (not p), (None if r is None else 1.0 - r)
             row.relevance = rel if rel_mode else None
             return row.passed, rel
 
@@ -307,11 +309,13 @@ class RuleEngine:
                             na.append(f"{c.describe()} not satisfied")
                     if not rel_mode:
                         continue
+                elif r is None:                       # neutral operand
+                    continue
                 elif (rel_mode and c.kind == "op" and self.ctx.relevance_nested_aggregation != "flat"
                       and len(attr_path_parts(c.attribute)) > 1):
                     nested.setdefault(attr_path_parts(c.attribute)[0], []).append((w, r))
                     continue
-                num += w * r
+                num += w * (r if r is not None else 0.0)
                 den += w
             for parts in nested.values():            # nested attribute scored as one operand
                 w = max(x for x, _ in parts)
@@ -319,10 +323,17 @@ class RuleEngine:
                 r = max(rs) if self.ctx.relevance_nested_aggregation == "max" else sum(rs) / len(rs)
                 num += w * r
                 den += w
-            rel = (num / den) if den > 0 else (1.0 if row.passed else 0.0)
+            nonc = [r for c, _, r, _ in results if not (c.kind == "op" and c.op in CONSTRAINT_OPS)]
+            if den > 0:
+                rel = num / den
+            elif row.passed and nonc and all(r is None for r in nonc):
+                rel = None                             # only neutral operands: neutral for the parent too
+            else:
+                rel = 1.0 if row.passed else 0.0
         else:  # or
             row.passed = any(p for _, p, _, _ in results)
-            rel = max((w * r for _, _, r, w in results), default=0.0)
+            scored = [w * r for _, _, r, w in results if r is not None]
+            rel = max(scored) if scored else (None if row.passed else 0.0)
         row.relevance = rel if rel_mode else None
         return row.passed, rel
 

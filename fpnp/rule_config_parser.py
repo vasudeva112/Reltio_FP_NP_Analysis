@@ -19,8 +19,11 @@ from typing import Dict, Iterable, List, Optional, Set
 from .exceptions_log import LOG
 
 LOGICAL_OPS = {"and", "or", "not"}
-ATTRIBUTE_OPS = {"exact", "fuzzy", "exactOrNull", "exactOrAllNull", "notExactSame", "notExact",
-                 "missing", "notMissing"}
+ATTRIBUTE_OPS = {"exact", "fuzzy", "exactOrNull", "exactOrAllNull", "exactOrNullOrAllNull", "notExactSame",
+                 "notExact", "missing", "notMissing"}
+# operators accepted by the parser although they were not found in the Reltio documentation available;
+# every use is written to Processing Exceptions as APPROXIMATION
+UNDOCUMENTED_OPS = {"exactOrNullOrAllNull", "missing", "notMissing"}
 CONSTRAINT_OPS = {"equals", "notEquals", "in", "notIn"}
 GROUP_OPS = {"multi"}
 KNOWN_OPERATORS = LOGICAL_OPS | ATTRIBUTE_OPS | CONSTRAINT_OPS | GROUP_OPS
@@ -276,6 +279,10 @@ class _TreeParser:
                 inner = kids[0] if len(kids) == 1 else Node("and", p, kids)
                 nodes.append(Node("not", p, [inner]))
             elif key in ATTRIBUTE_OPS:
+                if key in UNDOCUMENTED_OPS:
+                    LOG.add("APPROXIMATION", f"Operator '{key}' is not in the Reltio documentation available - "
+                                             "evaluated with the labelled assumption in OPERATOR_DOCS",
+                            group=self.group, example=f"{p}: {json.dumps(val)[:200]}")
                 for i, a in enumerate(val if isinstance(val, list) else [val]):
                     nodes.append(Node("op", f"{p}[{i}]", op=key, attribute=a))
             elif key in CONSTRAINT_OPS:

@@ -9,6 +9,7 @@ VERIFIED = "Verified against tenant"
 DOCUMENTED = "Documented only"
 APPROXIMATION = "Approximation"
 UNSUPPORTED = "Unsupported"
+BOTH_NULL_MODES = ("fail", "pass", "exclude")
 
 
 @dataclass
@@ -27,7 +28,8 @@ class EngineContext:
                  regexp_rules: Optional[list] = None,
                  relevance_constraint_mode: str = "veto",
                  relevance_nested_aggregation: str = "flat",
-                 double_metaphone_max_length: int = 4):
+                 double_metaphone_max_length: int = 4,
+                 both_null_exact_mode: str = "fail"):
         self.case_insensitive = case_insensitive
         self.treat_blank_as_null = treat_blank_as_null
         # Ambiguous Reltio relevance semantics, kept switchable (both Approximation):
@@ -42,6 +44,14 @@ class EngineContext:
         self.name_dictionary = name_dictionary or {}
         self.regexp_rules = regexp_rules or []
         self.double_metaphone_max_length = double_metaphone_max_length
+        # exact / fuzzy when BOTH sides have no value (Reltio documents "false"; tenants have been observed to
+        # behave otherwise - measure it with the null-semantics probe, see reltio_engine/null_semantics.py):
+        #   fail    -> operand false, relevance 0               (documented)
+        #   pass    -> operand true, relevance 1                (Approximation)
+        #   exclude -> operand neutral: true in boolean logic, left out of the relevance average (Approximation)
+        if both_null_exact_mode not in BOTH_NULL_MODES:
+            raise ValueError(f"both_null_exact_mode must be one of {BOTH_NULL_MODES}")
+        self.both_null_exact_mode = both_null_exact_mode
         from .phonetic import configure          # module-level: tokens and blocking share the codes
         configure(double_metaphone_max_length)
 

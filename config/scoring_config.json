@@ -1,0 +1,30 @@
+{
+  "bands": {
+    "exact": 100.0,
+    "strong_min": 80.0,
+    "partial_min": 40.0,
+    "weak_min": 1.0
+  },
+  "partial_similarity_floor": 0.7,
+  "exact_class_mismatch": "zero",
+  "null_policy": "exclude",
+  "both_null_score": 100.0,
+  "one_null_score": 0.0,
+  "weight_source": "rule",
+  "attribute_weights": {},
+  "critical_attributes": [],
+  "auto_detect_identifiers": true,
+  "similarity_groups": {
+    "high": 85.0,
+    "medium": 60.0
+  },
+  "fp": {
+    "genuine_min_score": 85.0,
+    "candidate_max_score": 60.0
+  },
+  "fn": {
+    "high_min_score": 85.0,
+    "medium_min_score": 70.0,
+    "low_min_score": 60.0
+  }
+}

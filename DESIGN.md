@@ -342,3 +342,56 @@ blocking), `CANDIDATE_GENERATION_MISS` (shared phrase over-collided),
 * Relevance of `exact`/`fuzzy` when one side is null in relevance-based groups.
 None of these blocks implementation: each is implemented as a labelled approximation
 and is a target for the `verify` mode.
+
+---
+
+## 8. Reltio FP / FN Analysis Engine (extension)
+
+Requirements: Reltio-specific attribute-wise and overall scoring for FP analysis of the Potential Match
+Report, and independent FN analysis over `entities.json` exports, both on one comparator/scoring engine.
+This extends the components above and replaces none of them. User guide: README §8.
+
+### 8.1 Reuse
+
+| Need | Reused component | Added |
+|---|---|---|
+| Rule / comparator / token parsing | `rule_config_parser` | `reltio_engine.match_rule_parser`: any export shape, catalogues, config diff |
+| Reltio comparison verdict | `operators`, `comparators/*`, `rule_evaluator` | `exactOrNullOrAllNull` (labelled), `BOTH_NULL_EXACT_MODE`, Soundex/Metaphone |
+| Attribute score / explanation | trace `LeafResult`s from `RuleEngine.evaluate` | `comparator_engine`, `normalization_engine` |
+| Overall score + rule outcome | `GroupEvaluation` | `scoring_engine` (`PairScorer`, `RuleOutcome`) |
+| Report reading | `report_reader` (+ extractor columns) | alias URI columns, XLSX, reports without a Rule column |
+| FP risk signals | `explain.risk_indicators`, `false_positive_analyzer._frequency` | verdicts, explanations |
+| Entity loading | `json_loader` (streaming), `attribute_extractor` (OV, null states), `EntityStore` | crosswalk / metadata capture, merge detection |
+| Candidate generation | `match_tokens.GroupTokenizer`, `phonetic.double_metaphone` | `blocking_engine` with per-strategy statistics |
+| Resume / parallel | `checkpoint.Checkpoint`, process-pool pattern | FN payloads, strategy counters |
+
+### 8.2 Decisions
+
+* **Similarity ≠ Reltio score ≠ rule outcome.** Three separate columns. The analytical score never
+  overrides the rule evaluation, and Reltio's relevance is never recomputed.
+* **The comparator verdict comes from the configured class.** Generic string similarity is only used to
+  *grade* closeness. It never decides equality, and exact-class mismatches score 0 by default.
+* **Scoring scope.** Only positive match conditions of the applicable rule are scored. NOT operands,
+  negativeRule operands and filters are listed with their role. The weights are the rule's relevance
+  weights (relevance_based) or 1, and can be overridden per attribute.
+* **Nulls.** Excluded from the similarity by default, so missing data does not inflate it. The operator
+  semantics for the rule outcome are unchanged and measurable (`null_semantics.probe`).
+* **Conflicts are data-driven.** Identifier-like means mostly digits and exact-compared, dates are parsed,
+  and critical attributes are configurable. No attribute names are hardcoded.
+* **Best rule per FN pair.** A satisfied rule first, then higher similarity, then documented-only fidelity,
+  then fewer null-satisfied conditions.
+* **FN confidence never exceeds the evidence.** Approximations, null reliance, failed attributes, or a
+  conflict seen by any configured rule cap or downgrade the class. "Confirmed" requires a steward decision.
+* **Scale.** Streaming load keeps only rule attributes. Pairs are stored as 64-bit integer keys with
+  strategy bitmasks. Blocks are capped. Excel detail sheets stream in openpyxl write-only mode with a row
+  cap, and full detail goes to CSV. Checkpoint/resume runs per batch.
+
+### 8.3 Known limitations
+
+* Same as §6/§7. Also, the analytical similarity is a reviewing aid. Its bands are configurable choices,
+  not Reltio thresholds.
+* The default blocking is selective. Pairs that differ on every blocking key are not seen (enable
+  `single` / `sorted` / custom keys, or measure with `--exhaustive` on a sample).
+* FN worker processes each receive a copy of the pruned entity store (memory grows with `WORKERS`).
+* `MATCH_EXPECTED_NOT_RETURNED` cannot distinguish "not rematched yet" from a tenant behaviour
+  difference without `_verifyMatches` (read-only `verify` mode).

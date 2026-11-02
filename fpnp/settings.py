@@ -58,6 +58,7 @@ class Settings:
     relevance_constraint_mode: str = "ignore"        # veto | ignore
     relevance_nested_aggregation: str = "mean"       # flat | max | mean
     double_metaphone_max_length: int = 4             # code length; 0 = unlimited (see comparators/phonetic.py)
+    both_null_exact_mode: str = "fail"               # exact/fuzzy with both values missing: fail | pass | exclude
 
     # candidate generation
     max_token_collision: int = 300
@@ -114,6 +115,15 @@ class Settings:
     verify_min_interval_sec: float = 0.5
     verify_seed: int = 42
 
+    # Reltio FP / FN analysis engine (fpnp.reltio_engine, fp_analysis, fn_analysis)
+    scoring_config_file: str = ""             # JSON scoring model; blank = built-in defaults
+    known_matches_file: str = ""              # optional CSV of pairs already matched / linked (FN exclusion)
+    merge_map_file: str = ""                  # optional CSV loser,winner of merged entities
+    fn_blocking_strategies: List[str] = field(default_factory=list)   # blank = every built-in strategy
+    fn_custom_blocking_keys: List[str] = field(default_factory=list)  # e.g. LastName+DoB, Identifiers.Value:digits
+    fn_max_block_size: int = 500
+    fn_min_similarity: float = 60.0           # pairs below this and failing every rule are not reported
+
     source_file: str = ""
 
     # ------------------------------------------------------------------
@@ -145,7 +155,10 @@ class Settings:
             cur = getattr(self, f.name)
             if f.name in ("report_files", "entity_export_paths"):
                 setattr(self, f.name, [path(x) for x in _split(raw)])
-            elif f.name in ("entity_types", "score_operators", "score_triggers"):
+            elif f.name in ("entity_types", "score_operators", "score_triggers", "fn_blocking_strategies"):
+                setattr(self, f.name, _split(raw))
+            elif f.name == "fn_custom_blocking_keys":
+                setattr(self, f.name, [x.strip() for x in raw.split(";") if x.strip()] if ";" in raw else _split(raw))
                 setattr(self, f.name, _split(raw))
             elif f.name in ("risk_weights",):
                 upd = dict(cur)

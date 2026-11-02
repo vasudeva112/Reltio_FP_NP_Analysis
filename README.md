@@ -31,6 +31,16 @@ py -m pip install -r requirements.txt
 py -m pytest -q
 ```
 
+**metaphone install note.** `metaphone 0.6` fails to build on recent setuptools
+(`AttributeError: install_layout`). The package is pure Python; this workaround was verified:
+`pip download metaphone --no-deps`, unpack the tarball, and copy its `metaphone` folder into
+`site-packages`. Without it, Double Metaphone falls back to single Metaphone, and the fallback is flagged
+as an approximation.
+
+**Repository layout.** `fpnp/legacy.py` finds the extractor in `FPNP_EXTRACTOR_DIR`, `extractor/` (this
+repository), next to `fpnp_analyzer.py`, or one folder above (the original
+`...\Potential_Matches\FPNP_Analyzer` layout).
+
 `py` is the Windows launcher. On this machine `python` resolves to the Microsoft Store alias,
 so use `py` (or disable the alias under *Settings › Apps › Advanced app settings › App execution aliases*).
 
@@ -268,3 +278,187 @@ tests\test_candidates.py  test_io_dedup.py  test_integration.py  test_fp_scores.
 sample_output\synthetic\...   (sample report from synthetic data)
 output\...                    (FP analysis of the real Output.csv)
 ```
+
+---
+
+## 8. Reltio FP / FN Analysis Engine (attribute scores, overall similarity, UI)
+
+Added on top of the analyzer above. Everything in sections 1–7 still works unchanged. The new modules
+reuse the same rule parser, comparator registry, operators, rule evaluator, streaming loader, OV
+extractor, token generator, steward decisions and checkpoint store.
+
+```
+fpnp/reltio_engine/   shared comparator & scoring engine
+  scoring_config.py     JSON scoring model (bands, weights, null policy, FP / FN thresholds)
+  normalization_engine  value as the configured comparator sees it + typed analytical similarity
+  comparator_engine     per-attribute result, 0–100 attribute score, explanation
+  scoring_engine        weighted overall similarity + SEPARATE rule outcome
+  match_rule_parser     load any config shape, rule / attribute catalogue, source-vs-target diff
+  null_semantics        measures both-null behaviour against Reltio's own output
+  metrics, excel_writer shared metrics, streaming styled Excel writer
+fpnp/fp_analysis/     Module A: potential_match_parser, fp_analyzer, fp_report
+fpnp/fn_analysis/     Module B: entity_loader, blocking_engine, candidate_generator, fn_analyzer, fn_report
+fpnp/reltio_pipeline.py      orchestration shared by CLI and UI
+fpnp/client_metrics_report.py client-presentable HTML + Excel metrics
+fpnp/reltio_testdata.py      14-scenario validation dataset
+fpnp_ui.py                   Streamlit UI
+scripts/generate_scale_data.py  large synthetic entities.json for performance tests
+config/scoring_config.json   default scoring model (edit, or set SCORING_CONFIG_FILE)
+```
+
+### Two numbers, never mixed
+
+| Output | Meaning |
+|---|---|
+| **Estimated similarity (0–100)** | `Σ(attribute score × weight) / Σ weight` over the rule's *positive* match conditions only. NOT-conditions, negativeRule operands and equals/in filters are reported but never scored. Attributes without values are excluded (`null_policy=exclude`) or scored (`null_policy=score`). Attributes the rule does not use are never read. |
+| **Rule evaluation** | Python model of the configured Reltio rule: `MATCH`, `NO MATCH (rule logic …)`, `NO MATCH (relevance below …)`, `NOT APPLICABLE (filter not met)`, `VETOED (negative rule)`, `UNSUPPORTED` |
+| **ReltioMatchScore** | Reltio's own relevance, when the Potential Match Report carries `ReltioRelevance`. Kept separate. |
+
+A pair can be 100 % similar and still fail the rule. For example, a NOT condition requires first names to
+differ, or an exact identifier is null on both sides.
+
+### Attribute score, per comparator class
+
+| Comparator outcome | Score |
+|---|---|
+| accepted, identical after the comparator's normalisation | 100 (`EXACT`) |
+| accepted different values (fuzzy / phonetic, e.g. Jon ~ John via DoubleMetaphone) | max(strong_min, similarity %) ≤ 99 (`VARIANT_MATCH`) |
+| rejected by an exact-class comparator (BasicString, PhoneNumber, RangeNumeric, Custom, CrossMulti) | 0 (`NO_MATCH`). The near-miss similarity is still reported (`exact_class_mismatch=graded` to grade it) |
+| rejected by a fuzzy / phonetic comparator | partial band if similarity ≥ floor, else weak band, else 0 |
+| no value on one / both sides | `ONE_NULL` / `BOTH_NULL`. The operator decides PASS/FAIL; excluded from the score by default |
+| comparator class not implemented | `UNSUPPORTED`: not scored, never claimed equal |
+
+Similarity is typed: dates compare by component (day/month swap, ±1 day), mostly-digit values
+(identifiers, phones) by digit edit distance, so `1234567890` vs `9876543210` is *not* "similar". Text uses
+the best of Jaro-Winkler, token-sort Jaro-Winkler and word overlap. Conflicts are detected from the data,
+not from attribute names: a populated identifier/code mismatch, a date conflict, a configured critical
+attribute, or nested values matched across different instances.
+
+### Comparators and operators
+
+| Class | Status |
+|---|---|
+| BasicStringComparator, DoubleMetaphoneComparator, JaroWinklerComparator, PhoneNumberComparator, CrossMultiComparator | Documented only |
+| DynamicDamerauLevenshteinDistance, DamerauLevenshteinDistance, AddressLineComparator, CustomComparator, RangeNumericComparator, SoundexComparator, MetaphoneComparator | Approximation |
+| any other class | Unsupported (never equal; reported) |
+| exact, fuzzy, exactOrNull, exactOrAllNull, notExact, equals, in, multi, and/or/not | Documented only |
+| exactOrNullOrAllNull, notExactSame, notIn, missing, notMissing | Approximation (not found in the Reltio docs available; logged when used) |
+
+**Null semantics.** `exactOrNull` passes for one- or both-sided nulls. `exactOrAllNull` passes only when
+both sides are null, and an all-null collection counts as null. exact/fuzzy with both values missing follow
+`BOTH_NULL_EXACT_MODE`:
+
+- `fail` is the documented default.
+- `pass` lets the operand pass.
+- `exclude` makes the operand neutral and leaves it out of the relevance average.
+
+Because you have seen both-null pairs being matched, **measure it**:
+`py fpnp_analyzer.py null-probe` re-evaluates every null-affected Potential Match Report row under each
+mode. Per rule, it reports how many of Reltio's rows each mode reproduces and the relevance error. The
+recommendation is evidence, not proof; confirm a sample with `verify`.
+
+### FP classification (Module A)
+
+`Confirmed False Positive` / `Confirmed Genuine Duplicate` come from steward decisions only. Otherwise:
+
+- **Potential False Positive**: a conflict (populated identifier / date / critical attribute, or nested
+  cross-instance match), similarity < `fp.candidate_max_score`, or a match resting on null handling while
+  compared values disagree.
+- **Likely Genuine Duplicate**: the Python rule reproduces the match, similarity ≥ `fp.genuine_min_score`,
+  and there is no conflict.
+- **Requires Manual Review**: everything else.
+
+### FN classification (Module B)
+
+Only OV values are used. A Potential Match Report and a known-matches file are optional; they only
+exclude pairs Reltio already returned or linked. Pairs that share a crosswalk or appear in `MERGE_MAP_FILE`
+are already-merged and are excluded.
+
+| Class | Condition |
+|---|---|
+| Confirmed False Negative | steward MATCH / MERGED, Reltio did not return the pair |
+| High-confidence potential FN | a rule is satisfied with documented semantics only, similarity ≥ `fn.high_min_score`, no null-satisfied condition, no failed attribute, no conflict |
+| Medium-confidence potential FN | a rule is satisfied, similarity ≥ `fn.medium_min_score` |
+| Requires manual review | a rule is satisfied, but values conflict (in this or another configured rule), nested values matched across instances, unsupported classes, or it rests on nulls while compared values differ |
+| Low-confidence candidate | no rule satisfied, similarity ≥ `fn.low_min_score` (near miss, input for rule tuning) |
+
+Reason codes:
+
+- `TOKENIZATION_MISMATCH`: no shared match token, so Reltio never compared the pair.
+- `CANDIDATE_GENERATION_MISS`: the only shared token is over-collided.
+- `MATCH_EXPECTED_NOT_RETURNED`: tokens are shared and the rule is met. Check rematch, rule changes or comparator differences.
+- `RULE_NOT_SATISFIED`: a near miss.
+- `STEWARD_CONFIRMED`.
+
+**Blocking.** Candidate pairs are the union of the strategies, so a pair missed by one key is still found
+by another:
+
+- `reltio_tokens`: the rule's own match-token phrases. Over-collided phrases are tracked separately.
+- `rule_keys`: all exact/fuzzy rule attributes.
+- `rule_phonetic`: fuzzy attributes by Double Metaphone code.
+- `pairs`: attribute pairs within a rule.
+- `custom`: e.g. `LastName+DoB;FirstName:phonetic+LastName;Identifiers.Value:digits;DoB:year;Name:prefix4`.
+
+`single` and `sorted` (neighbourhood) raise recall at a much higher pair count and are opt-in. Blocks above
+`FN_MAX_BLOCK_SIZE` are skipped and counted. Nothing is compared all-pairs except in `--exhaustive` mode,
+which is capped by `EXHAUSTIVE_MAX_ENTITIES`.
+
+### Commands
+
+```bat
+:: rule / attribute / comparator catalogue (CSV + console)
+py fpnp_analyzer.py rules
+:: FP analysis of the Potential Match Report (report values, or entity JSON when ENTITY_EXPORT_PATHS is set)
+py fpnp_analyzer.py reltio-fp
+:: report without a Rule column: name the rule, or let it be inferred
+py fpnp_analyzer.py reltio-fp --rule BeneRule01
+:: FN analysis over entities.json exports (resumable; WORKERS>1 = parallel)
+py fpnp_analyzer.py reltio-fn --set ENTITY_EXPORT_PATHS=exports/ --set WORKERS=4
+:: both + client report
+py fpnp_analyzer.py reltio-all
+:: both-null calibration against Reltio's output
+py fpnp_analyzer.py null-probe
+:: compare two configurations (e.g. DEV vs PROD L3 exports)
+py fpnp_analyzer.py config-diff --source L3_dev.json --target L3_prod.json
+:: 14-scenario validation dataset + all reports
+py fpnp_analyzer.py reltio-demo
+:: UI
+py -m streamlit run fpnp_ui.py
+```
+
+If the match-rule configuration is missing, every mode stops with an explanation of how to provide it.
+No default rules are assumed. The UI asks for an upload.
+
+### Outputs
+
+| File | Content |
+|---|---|
+| `Reltio_FP_Analysis_Report.xlsx` | FP Summary (totals, classification, rule-wise / attribute-wise distribution, score distribution, high/medium/low groups, risk indicators, null calibration), FP Pair Details, FP Attribute Details, Scoring Model |
+| `Reltio_FN_Analysis_Report.xlsx` | FN Summary (entities, candidate pairs, high/medium/low/review counts, rule-wise counts, reasons, exclusions), FN Pair Details, FN Attribute Details, Blocking Analysis (per key: entities, blocks, pairs, matching candidates, largest blocks), Scoring Model |
+| `Reltio_Match_Quality_Report.html` | **client-presentable** FP + FN metrics: headline tiles, findings, verdict and confidence mix, similarity distributions, rule tables, attribute disagreement, missed-match reasons, blocking coverage, method. No attribute values or entity IDs. Prints to PDF. |
+| `Reltio_Match_Quality_Metrics.xlsx` | the same metrics as formatted Excel tables with native charts |
+| `detail/fp_*.csv`, `detail/fn_*.csv` | full detail (Excel sheets are capped at `EXCEL_ROW_CAP`) |
+| `reltio_fp_run.json`, `reltio_fn_run.json`, `fn_checkpoint.sqlite` | run metadata (hashes, parameters, scoring model), FN resume store |
+
+### UI
+
+`py -m streamlit run fpnp_ui.py` (optionally `-- --settings my.properties`).
+
+- **Sidebar**: configuration upload or path, entity types, rules, comparison behaviour (incl. both-null
+  mode), scoring model (download as JSON), and *Load validation demo data*.
+- **False Positive Analysis**: upload the report and optional entity JSON, run with progress.
+- **False Negative Analysis**: upload exports, known-matches and report files; choose blocking strategies,
+  custom keys, thresholds, workers, batch size and resume.
+- Both result views have filters (match rule, entity type, score range, classification, attribute,
+  comparator type), a results grid, and a **pair drill-down** (select a row or pick a pair) showing every
+  attribute comparison, normalised values, score, weight, contribution and explanation. Downloads cover
+  the Excel report, client HTML and client Excel.
+- **Match Rules**: the rule and attribute catalogue, and the source-vs-target comparison.
+
+### Fidelity
+
+Python approximates Reltio. Every comparator and operator is labelled Documented only / Approximation /
+Unsupported, and results depending on approximations are graded down. Nothing here claims to reproduce
+Reltio exactly until a sample has been checked with the read-only `verify` mode. Synthetic datasets
+(`synthetic`, `reltio-demo`, `scripts/generate_scale_data.py`) show behaviour and throughput, not
+production FP/FN rates.
