@@ -1,0 +1,8 @@
+pandas>=2.0
+openpyxl>=3.1
+jellyfish>=1.0
+metaphone>=0.6        # Double Metaphone; without it a single-Metaphone fallback is used and flagged
+requests>=2.28        # also required by Potential_Matches_Extract_v3.py
+pyarrow>=14           # optional: Parquet detail files
+pycryptodome>=3.18    # optional: ENC(...) values in the tenant .properties file
+pytest>=8             # tests
