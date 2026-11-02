@@ -458,6 +458,29 @@ No default rules are assumed. The UI asks for an upload.
   the Excel report, client HTML and client Excel.
 - **Match Rules**: the rule and attribute catalogue, and the source-vs-target comparison.
 
+### Performance (measured)
+
+`scripts/generate_scale_data.py --entities 100000` (84 MB JSON array, 10 % near-duplicates, 5 rules) with
+`reltio-fn`, `WORKERS=4`, on a Linux container:
+
+| Stage | Result |
+|---|---|
+| Streaming load (OV values of 11 rule attributes) | ~9 s |
+| Blocking (29 strategies, single process) | 130 s → 32,903 candidate pairs (all-pairs would be ~5 × 10⁹) |
+| Evaluation (every pair × 5 rules, 4 workers) + classification | ~110 s |
+| Total wall time / peak Python heap | 298 s / 361 MB |
+
+`pairs:FirstName+LastName` was skipped as low-selectivity, because the synthetic data has only 40 × 42
+names. Blocking time and memory grow roughly linearly with entities × strategies, and evaluation time
+with candidate pairs. For multi-million exports:
+
+- run per entity type;
+- keep the default strategies;
+- add `WORKERS`;
+- rely on `RESUME=yes` (checkpoint per batch).
+
+Blocking runs in one process, and FN workers each get a copy of the pruned entity store.
+
 ### Fidelity
 
 Python approximates Reltio. Every comparator and operator is labelled Documented only / Approximation /
